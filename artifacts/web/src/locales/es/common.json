@@ -1,0 +1,35 @@
+{
+  "appName": "RubberIQ",
+  "tagline": "Operaciones con IA primero para talleres de llantas usadas.",
+  "actions": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "retry": "Reintentar",
+    "next": "Siguiente",
+    "back": "Atrás",
+    "submit": "Enviar",
+    "sign": "Firmar",
+    "print": "Imprimir"
+  },
+  "nav": {
+    "dashboard": "Panel",
+    "intake": "Captura",
+    "inventory": "Inventario",
+    "customers": "Clientes",
+    "scrap": "Desecho",
+    "settings": "Ajustes",
+    "admin": "Admin",
+    "sales": "Ventas",
+    "demo": "Demo",
+    "signOut": "Cerrar sesión"
+  },
+  "languages": {
+    "en": "English",
+    "es": "Español"
+  },
+  "theme": {
+    "light": "Claro",
+    "dark": "Oscuro"
+  }
+}

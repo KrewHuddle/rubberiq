@@ -1,0 +1,21 @@
+{
+  "name": "@rubberiq/scripts",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "seed": "tsx src/seed.ts"
+  },
+  "dependencies": {
+    "@rubberiq/db": "workspace:*",
+    "bcryptjs": "^2.4.3",
+    "drizzle-orm": "catalog:"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/node": "catalog:",
+    "tsx": "catalog:",
+    "typescript": "~5.9.2"
+  }
+}

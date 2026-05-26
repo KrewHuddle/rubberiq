@@ -1,0 +1,188 @@
+/* ============================================================================
+ * RubberIQ Design Tokens (Module 1)
+ *
+ * Direction: Industrial/utilitarian precision meets modern fintech clarity.
+ * Reference feel: Linear/Stripe dashboard with an automotive-shop-floor edge.
+ *
+ * Font pairing (Module 1 hard rule — NOT Inter/Roboto/Arial/system):
+ *   Display  : "Space Grotesk"   — geometric, distinctive, modern industrial
+ *   Body     : "IBM Plex Sans"   — characterful, technical, not Arial-flavored
+ *   Mono     : "JetBrains Mono"  — DOT codes, IDs, raw data
+ *
+ * Palette: deep industrial charcoal base + a single confident accent (Heat Amber),
+ *   evoking tire-rubber heat — deliberately AVOIDS the saturated blue/purple/teal
+ *   cliché of generic SaaS and the "purple-gradient-on-white" AI look.
+ *
+ * Color system uses OKLCH for perceptual uniformity. Light and dark themes
+ * are first-class siblings (bays are bright, back offices are not).
+ * ========================================================================= */
+
+@font-face { font-family: 'Space Grotesk'; font-display: swap; src: local('Space Grotesk'); }
+@font-face { font-family: 'IBM Plex Sans'; font-display: swap; src: local('IBM Plex Sans'); }
+@font-face { font-family: 'JetBrains Mono'; font-display: swap; src: local('JetBrains Mono'); }
+
+:root {
+  /* -- type ---------------------------------------------------------------- */
+  --rb-font-display: 'Space Grotesk', 'Space Grotesk Local', sans-serif;
+  --rb-font-body: 'IBM Plex Sans', system-ui, sans-serif;
+  --rb-font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --rb-size-2xs: 0.6875rem; /* 11 */
+  --rb-size-xs: 0.75rem;    /* 12 */
+  --rb-size-sm: 0.875rem;   /* 14 */
+  --rb-size-base: 1rem;     /* 16 */
+  --rb-size-lg: 1.125rem;   /* 18 */
+  --rb-size-xl: 1.375rem;   /* 22 */
+  --rb-size-2xl: 1.75rem;   /* 28 */
+  --rb-size-3xl: 2.5rem;    /* 40 */
+  --rb-size-4xl: 3.5rem;    /* 56 */
+  --rb-size-display: 5rem;  /* 80 — hero numbers, grades, prices */
+
+  --rb-leading-tight: 1.05;
+  --rb-leading-snug: 1.2;
+  --rb-leading-body: 1.5;
+
+  --rb-tracking-display: -0.03em;
+  --rb-tracking-data: 0.04em; /* DOT codes, IDs */
+
+  /* -- spacing (4px base, but composed in rem) --------------------------- */
+  --rb-space-1: 0.25rem;
+  --rb-space-2: 0.5rem;
+  --rb-space-3: 0.75rem;
+  --rb-space-4: 1rem;
+  --rb-space-5: 1.25rem;
+  --rb-space-6: 1.5rem;
+  --rb-space-8: 2rem;
+  --rb-space-10: 2.5rem;
+  --rb-space-12: 3rem;
+  --rb-space-16: 4rem;
+  --rb-space-20: 5rem;
+
+  /* -- radii ------------------------------------------------------------- */
+  --rb-radius-xs: 0.125rem;
+  --rb-radius-sm: 0.25rem;
+  --rb-radius-md: 0.5rem;
+  --rb-radius-lg: 0.75rem;
+  --rb-radius-xl: 1rem;
+  --rb-radius-2xl: 1.5rem;
+  --rb-radius-stamp: 0.25rem; /* GradeStamp — stamped, confident, not pill */
+
+  /* -- shadows / depth --------------------------------------------------- */
+  --rb-shadow-sm: 0 1px 2px oklch(0% 0 0 / 0.18);
+  --rb-shadow-md: 0 4px 12px oklch(0% 0 0 / 0.22), 0 1px 2px oklch(0% 0 0 / 0.16);
+  --rb-shadow-lg: 0 12px 32px oklch(0% 0 0 / 0.32), 0 2px 6px oklch(0% 0 0 / 0.18);
+  --rb-shadow-stamp: 0 0 0 1px oklch(0% 0 0 / 0.22), 0 1px 0 oklch(100% 0 0 / 0.05) inset;
+
+  /* -- atmosphere (subtle noise/grain texture) --------------------------- */
+  --rb-noise:
+    radial-gradient(circle at 1px 1px, oklch(100% 0 0 / 0.015) 1px, transparent 0);
+
+  /* -- motion (durations / easings) -------------------------------------- */
+  --rb-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --rb-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --rb-dur-fast: 140ms;
+  --rb-dur-base: 240ms;
+  --rb-dur-reveal: 520ms;
+
+  /* -- semantic grade colors (A/B/C/D + FAIL) ---------------------------- */
+  --rb-grade-a: oklch(68% 0.16 145);  /* strong green   */
+  --rb-grade-b: oklch(64% 0.13 235);  /* blue           */
+  --rb-grade-c: oklch(76% 0.14 80);   /* amber          */
+  --rb-grade-d: oklch(64% 0.18 38);   /* orange         */
+  --rb-grade-fail: oklch(58% 0.22 25);/* health red     */
+
+  /* -- alerts ------------------------------------------------------------ */
+  --rb-alert-green: oklch(68% 0.16 145);
+  --rb-alert-yellow: oklch(82% 0.16 95);
+  --rb-alert-red: oklch(58% 0.22 25);
+}
+
+/* ----------------------------------------------------------------------------
+ * Light theme — bays are bright. Industrial paper feel, not white-saas-cliché.
+ * ------------------------------------------------------------------------- */
+:root,
+[data-theme='light'] {
+  --rb-bg: oklch(98% 0.003 95);          /* off-paper */
+  --rb-bg-elev: oklch(100% 0 0);          /* card */
+  --rb-bg-sunk: oklch(95% 0.005 95);
+  --rb-border: oklch(88% 0.005 95);
+  --rb-border-strong: oklch(72% 0.005 95);
+  --rb-fg: oklch(18% 0.015 60);           /* near-charcoal ink */
+  --rb-fg-muted: oklch(45% 0.012 60);
+  --rb-fg-subtle: oklch(62% 0.008 60);
+
+  /* Heat Amber — confident accent, distinctive vs SaaS blue/purple/teal */
+  --rb-accent: oklch(64% 0.18 38);
+  --rb-accent-fg: oklch(98% 0.003 95);
+  --rb-accent-hover: oklch(58% 0.20 38);
+
+  /* focus ring */
+  --rb-ring: oklch(64% 0.18 38 / 0.45);
+}
+
+/* ----------------------------------------------------------------------------
+ * Dark theme — back offices, late shifts. Deep industrial charcoal.
+ * ------------------------------------------------------------------------- */
+[data-theme='dark'] {
+  --rb-bg: oklch(15% 0.012 60);           /* near-black, slight warm cast */
+  --rb-bg-elev: oklch(20% 0.012 60);
+  --rb-bg-sunk: oklch(12% 0.012 60);
+  --rb-border: oklch(28% 0.012 60);
+  --rb-border-strong: oklch(42% 0.012 60);
+  --rb-fg: oklch(96% 0.005 95);
+  --rb-fg-muted: oklch(75% 0.008 60);
+  --rb-fg-subtle: oklch(58% 0.008 60);
+
+  --rb-accent: oklch(70% 0.18 42);
+  --rb-accent-fg: oklch(15% 0.012 60);
+  --rb-accent-hover: oklch(76% 0.18 42);
+
+  --rb-ring: oklch(70% 0.18 42 / 0.50);
+}
+
+/* ----------------------------------------------------------------------------
+ * Defaults applied to body — every screen consumes tokens.
+ * ------------------------------------------------------------------------- */
+html, body {
+  background: var(--rb-bg);
+  color: var(--rb-fg);
+  font-family: var(--rb-font-body);
+  font-size: var(--rb-size-base);
+  line-height: var(--rb-leading-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background-image: var(--rb-noise);
+  background-size: 4px 4px;
+  background-attachment: fixed;
+}
+
+/* Headings — display font, tight tracking, confident weight */
+h1, h2, h3, .rb-display {
+  font-family: var(--rb-font-display);
+  letter-spacing: var(--rb-tracking-display);
+  line-height: var(--rb-leading-tight);
+  font-weight: 600;
+}
+
+/* Mono data — DOT codes, IDs, timestamps */
+.rb-mono {
+  font-family: var(--rb-font-mono);
+  letter-spacing: var(--rb-tracking-data);
+  font-variant-numeric: tabular-nums;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--rb-ring);
+  outline-offset: 2px;
+}
+
+/* Respect reduced-motion: kill the reveal animations */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

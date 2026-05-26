@@ -1,0 +1,18 @@
+{
+  "saleDoc": {
+    "title": "Used Tire Sale Disclosure",
+    "tire": "Tire",
+    "size": "Size",
+    "dot": "DOT Code",
+    "age": "Age (months)",
+    "treadDepth": "Tread Depth (32nds)",
+    "grade": "Grade",
+    "soldAsIs": "Sold as-is. Inspect before installation.",
+    "ageDisclosure": "This tire is more than {{months}} months old. Buyer acknowledges receipt of age disclosure.",
+    "signature": "Customer signature",
+    "date": "Date"
+  },
+  "errors": {
+    "tireFailedGrading": "This tire failed safety grading and cannot be sold."
+  }
+}

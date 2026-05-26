@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>RubberIQ · Pricing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Source+Sans+3:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+  rel="stylesheet"
+/>
+<style>
+/* Hallmark · component: pricing-section · genre: modern-minimal · theme: Newsprint
+ * macrostructure: Stat-Led
+ * states: default · hover · focus · active · disabled · loading · error · success
+ * contrast: pass (46–50)
+ * pre-emit critique: P5 H5 E4 S5 R5 V4
+ */
+
+:root {
+  /* ---- type ---- */
+  --font-display: "Spectral", Georgia, "Times New Roman", serif;
+  --font-body:    "Source Sans 3", system-ui, -apple-system, sans-serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  /* ---- size scale ---- */
+  --text-xs:        0.75rem;
+  --text-sm:        0.875rem;
+  --text-base:      1rem;
+  --text-lg:        1.125rem;
+  --text-xl:        1.375rem;
+  --text-2xl:       1.75rem;
+  --text-3xl:       2.5rem;
+  --text-4xl:       3.5rem;
+  --text-display-s: 4rem;
+  --text-display:   5rem;
+
+  /* ---- 4pt space scale ---- */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+
+  /* ---- color · Newsprint (light) ---- */
+  --color-paper:        oklch(96.5% 0.008 75);
+  --color-paper-2:      oklch(94% 0.010 75);
+  --color-paper-3:      oklch(99% 0.005 90);
+  --color-ink:          oklch(22% 0.015 60);
+  --color-ink-2:        oklch(40% 0.012 60);
+  --color-ink-3:        oklch(58% 0.008 60);
+  --color-rule:         oklch(82% 0.010 60);
+  --color-rule-strong:  oklch(60% 0.012 60);
+  --color-accent:       oklch(54% 0.16 30);   /* iron-oxide vermillion */
+  --color-accent-2:     oklch(48% 0.18 30);
+  --color-accent-fg:    oklch(98% 0.005 90);
+  --color-focus:        oklch(54% 0.16 30);
+  --color-success:      oklch(50% 0.14 145);
+  --color-error:        oklch(52% 0.20 25);
+
+  /* ---- radii ---- */
+  --radius-none: 0;
+  --radius-sm:   2px;
+
+  /* ---- rules ---- */
+  --rule-hair:    1px solid var(--color-rule);
+  --rule-strong:  2px solid var(--color-ink);
+  --rule-accent:  3px solid var(--color-accent);
+
+  /* ---- motion ---- */
+  --dur-instant:  90ms;
+  --dur-fast:     160ms;
+  --dur-base:     240ms;
+  --ease-out:     cubic-bezier(0.2, 0, 0, 1);
+  --ease-in:      cubic-bezier(0.4, 0, 1, 1);
+  --ease-in-out:  cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-paper:        oklch(16% 0.010 60);
+    --color-paper-2:      oklch(20% 0.010 60);
+    --color-paper-3:      oklch(22% 0.012 60);
+    --color-ink:          oklch(96% 0.005 90);
+    --color-ink-2:        oklch(78% 0.008 60);
+    --color-ink-3:        oklch(58% 0.008 60);
+    --color-rule:         oklch(34% 0.010 60);
+    --color-rule-strong:  oklch(58% 0.010 60);
+    --color-accent:       oklch(70% 0.16 35);
+    --color-accent-2:     oklch(76% 0.16 35);
+    --color-accent-fg:    oklch(14% 0.010 60);
+    --color-focus:        oklch(70% 0.16 35);
+  }
+}
+
+/* ---- mobile safety ---- */
+html, body { overflow-x: clip; }
+html { box-sizing: border-box; }
+*, *::before, *::after { box-sizing: inherit; }
+
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ============================================================
+   Section
+============================================================ */
+
+.pricing {
+  padding: clamp(var(--space-12), 8vw, var(--space-20)) var(--space-6);
+}
+
+.pricing__inner {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.pricing__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-6);
+  border-bottom: var(--rule-hair);
+  padding-bottom: var(--space-8);
+  margin-bottom: var(--space-12);
+}
+
+.pricing__lede {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2.25rem, 5.5vw, var(--text-4xl));
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+  margin: 0;
+  max-width: 22ch;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+.pricing__lede em {
+  font-style: italic;
+  color: var(--color-accent);
+  font-weight: 500;
+}
+
+.pricing__deck {
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  color: var(--color-ink-2);
+  max-width: 58ch;
+  margin: 0;
+}
+
+.pricing__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4) var(--space-6);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-ink-3);
+  padding-top: var(--space-4);
+  border-top: var(--rule-hair);
+}
+
+.pricing__meta b { color: var(--color-ink); font-weight: 500; }
+
+/* ============================================================
+   Tiers grid — Stat-Led ledger
+============================================================ */
+
+.tiers {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-6);
+}
+
+@media (min-width: 880px) {
+  .tiers {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    border-top: var(--rule-hair);
+    border-bottom: var(--rule-hair);
+  }
+}
+
+.tier {
+  display: grid;
+  grid-template-rows: auto auto auto 1fr auto;
+  padding: var(--space-8) var(--space-6);
+  background: var(--color-paper);
+  position: relative;
+  min-width: 0;
+}
+
+@media (min-width: 880px) {
+  .tier {
+    padding: var(--space-10) var(--space-8);
+    border-right: var(--rule-hair);
+  }
+  .tier:last-child { border-right: 0; }
+}
+
+@media (max-width: 879px) {
+  .tier {
+    border: var(--rule-hair);
+    border-radius: var(--radius-sm);
+  }
+}
+
+/* Featured (middle) — top accent rule + warmer surface */
+.tier--featured {
+  background: var(--color-paper-3);
+  z-index: 1;
+}
+
+.tier--featured::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  border-top: var(--rule-accent);
+}
+
+@media (max-width: 879px) {
+  .tier--featured { border-color: var(--color-rule-strong); }
+}
+
+.tier__badge {
+  align-self: start;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  font-weight: 500;
+  padding: var(--space-1) 0 var(--space-2);
+}
+
+.tier__badge-spacer { min-height: calc(var(--space-1) + var(--space-2) + 1em); }
+
+.tier__name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-2xl);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+  margin: 0 0 var(--space-2);
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+.tier__pitch {
+  font-size: var(--text-sm);
+  color: var(--color-ink-2);
+  margin: 0 0 var(--space-6);
+  max-width: 32ch;
+  line-height: 1.5;
+}
+
+/* Stat-Led: price is the hero */
+.tier__price-row {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+  padding: var(--space-5) 0 var(--space-3);
+  border-top: var(--rule-hair);
+  border-bottom: var(--rule-hair);
+  margin-bottom: var(--space-6);
+}
+
+.tier__price {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(3rem, 6.5vw, var(--text-display-s));
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-ink);
+  margin: 0;
+  min-width: 0;
+}
+
+.tier--featured .tier__price { color: var(--color-accent); }
+
+.tier__price--custom {
+  font-size: clamp(2rem, 4.5vw, var(--text-3xl));
+  font-style: italic;
+  font-weight: 500;
+}
+
+.tier__cadence {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-ink-3);
+}
+
+/* feature list — ledger rows */
+.tier__features {
+  list-style: none;
+  margin: 0 0 var(--space-8);
+  padding: 0;
+  display: grid;
+  gap: 0;
+}
+
+.tier__features li {
+  display: grid;
+  grid-template-columns: 1.25em minmax(0, 1fr);
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-bottom: var(--rule-hair);
+  font-size: var(--text-sm);
+  color: var(--color-ink);
+  line-height: 1.5;
+}
+
+.tier__features li:last-child { border-bottom: 0; }
+
+.tier__mark {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
+  color: var(--color-accent);
+  font-weight: 500;
+  line-height: 1.7;
+  align-self: start;
+}
+
+.tier__fine {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-ink-3);
+  margin: var(--space-3) 0 0;
+}
+
+/* ============================================================
+   CTA Button · 8 states
+============================================================ */
+
+.btn {
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  min-height: 48px;
+  padding: 0 var(--space-5);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: var(--text-base);
+  line-height: 1;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out),
+    transform var(--dur-instant) var(--ease-out);
+}
+
+/* outline (Single Bay, Chain) */
+.btn--ghost {
+  background: transparent;
+  color: var(--color-ink);
+  box-shadow: inset 0 0 0 1px var(--color-rule-strong);
+}
+
+.btn--ghost:hover,
+.btn--ghost.is-hover {
+  background: var(--color-ink);
+  color: var(--color-paper);
+  box-shadow: inset 0 0 0 1px var(--color-ink);
+}
+
+.btn--ghost:active,
+.btn--ghost.is-active {
+  transform: translateY(1px);
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+/* primary (featured) */
+.btn--primary {
+  background: var(--color-accent);
+  color: var(--color-accent-fg);
+  box-shadow: inset 0 0 0 1px var(--color-accent);
+}
+
+.btn--primary:hover,
+.btn--primary.is-hover {
+  background: var(--color-accent-2);
+  box-shadow: inset 0 0 0 1px var(--color-accent-2);
+}
+
+.btn--primary:active,
+.btn--primary.is-active {
+  transform: translateY(1px);
+}
+
+/* focus — instant ring, no animation */
+.btn:focus-visible,
+.btn.is-focus {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* disabled */
+.btn:disabled,
+.btn.is-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* loading */
+.btn[data-state="loading"] {
+  cursor: progress;
+  pointer-events: none;
+}
+
+.btn[data-state="loading"]::before {
+  content: "";
+  width: 0.85em;
+  height: 0.85em;
+  border: 1.5px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: btn-spin 720ms linear infinite;
+}
+
+@keyframes btn-spin { to { transform: rotate(360deg); } }
+
+/* error */
+.btn[data-state="error"] {
+  background: var(--color-error);
+  color: var(--color-accent-fg);
+  box-shadow: inset 0 0 0 1px var(--color-error);
+}
+
+.btn[data-state="error"]::before {
+  content: "!";
+  font-weight: 700;
+}
+
+/* success */
+.btn[data-state="success"] {
+  background: var(--color-success);
+  color: var(--color-accent-fg);
+  box-shadow: inset 0 0 0 1px var(--color-success);
+}
+
+.btn[data-state="success"]::before {
+  content: "✓";
+  font-weight: 700;
+}
+
+/* ---- reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<section class="pricing" aria-labelledby="pricing-lede">
+  <div class="pricing__inner">
+
+    <header class="pricing__head">
+      <h2 id="pricing-lede" class="pricing__lede">
+        Three plans for shops that <em>actually price tires.</em>
+      </h2>
+      <p class="pricing__deck">
+        Flat per-location. No per-tire fees. Vision intake, deterministic grading,
+        and instant pricing on every plan — the bigger plans add the things only
+        multi-shop operators need.
+      </p>
+      <div class="pricing__meta">
+        <span><b>Billed</b> monthly · cancel from settings</span>
+        <span><b>Trial</b> 30 days · no card required</span>
+        <span><b>Setup</b> ~10 minutes · rules imported on the call</span>
+      </div>
+    </header>
+
+    <div class="tiers" role="list">
+
+      <!-- Tier 01 — Single Bay -->
+      <article class="tier" role="listitem" aria-labelledby="tier-single-name">
+        <div class="tier__badge-spacer" aria-hidden="true"></div>
+        <h3 id="tier-single-name" class="tier__name">Single Bay</h3>
+        <p class="tier__pitch">One location. Unlimited intake. Unlimited grading.</p>
+
+        <div class="tier__price-row">
+          <p class="tier__price"><span aria-hidden="true">$</span>149</p>
+          <span class="tier__cadence">/ shop / month</span>
+        </div>
+
+        <ul class="tier__features">
+          <li><span class="tier__mark" aria-hidden="true">✓</span><span>Vision intake — English &amp; Spanish</span></li>
+          <li><span class="tier__mark" aria-hidden="true">✓</span><span>Deterministic grading engine (A · B · C · D · FAIL)</span></li>
+          <li><span class="tier__mark" aria-hidden="true">✓</span><span>PWA — installs on any phone, works on the bay floor</span></li>
+          <li><span class="tier__mark" aria-hidden="true">✓</span><span>Scrap queue &amp; EPA-defensible disposal manifests</span></li>
+          <li><span class="tier__mark" aria-hidden="true">✓</span><span>Email support — next business day</span></li>
+        </ul>
+
+        <div>
+          <a class="btn btn--ghost" href="/sign-in" role="button">Start 30-day trial</a>
+          <p class="tier__fine">No card · cancel from settings</p>
+        </div>
+      </article>
+
+      <!-- Tier 02 — Multi-Bay (FEATURED) -->
+      <article class="tier tier--featured" role="listitem" aria-labelledby="tier-multi-name">
+        <div class="tier__badge">Recommended</div>
+        <h3 id="tier-multi-name" class="tier__name">Multi-Bay</h3>
+        <p class="tier__pitch">Three or more locations. Centralized rules and reporting.</p>
+
+        <div class="tier__price-row">
+          <p class="tier__price"><span aria-hidden="true">$</span>129</p>
+          <span class="tier__cadence">/ shop / month</span>
+        </div>
+
+        <ul class="tier__features">
+          <li><span class="tier__mark" aria-hidden="true">✓</span><span>Everything in Single Bay</span></li>
+          <li><span class="tier__mark" aria-hidden="true">✓</span><span>Cross-shop inventory &amp; transfers</span></li>
+          <li><span class="tier__mark" aria-hidden="true">✓</span><span>Wholesaler integrations (Tirewire, TireConnect)</span></li>
+          <li><span class="tier__mark" aria-hidden="true">✓</span><span>Roll-up reporting — revenue, scrap, grade mix</span></li>
+          <li><span class="tier__mark" aria-hidden="true">✓</span><span>Priority phone support — same business day</span></li>
+        </ul>
+
+        <div>
+          <a class="btn btn--primary" href="/sign-in" role="button">Start 30-day trial</a>
+          <p class="tier__fine">Onboarding call included</p>
+        </div>
+      </article>
+
+      <!-- Tier 03 — Chain -->
+      <article class="tier" role="listitem" aria-labelledby="tier-chain-name">
+        <div class="tier__badge-spacer" aria-hidden="true"></div>
+        <h3 id="tier-chain-name" class="tier__name">Chain</h3>
+        <p class="tier__pitch">Ten or more locations across one or many states.</p>
+
+        <div class="tier__price-row">
+          <p class="tier__price tier__price--custom">Custom</p>
+          <span class="tier__cadence">/ talk to us</span>
+        </div>
+
+        <ul class="tier__features">
+          <li><span class="tier__mark" aria-hidden="true">✓</span><span>Everything in Multi-Bay</span></li>
+          <li><span class="tier__mark" aria-hidden="true">✓</span><span>Multi-region rollout &amp; staged deployment</span></li>
+          <li><span class="tier__mark" aria-hidden="true">✓</span><span>SSO (SAML / OIDC) &amp; audit logs</span></li>
+          <li><span class="tier__mark" aria-hidden="true">✓</span><span>Dedicated customer success manager</span></li>
+          <li><span class="tier__mark" aria-hidden="true">✓</span><span>Custom SLA &amp; written security review</span></li>
+        </ul>
+
+        <div>
+          <a class="btn btn--ghost" href="mailto:hello@rubberiq.com?subject=Chain%20plan" role="button">Talk to sales</a>
+          <p class="tier__fine">Pricing scales by location count</p>
+        </div>
+      </article>
+
+    </div>
+
+  </div>
+</section>
+
+</body>
+</html>

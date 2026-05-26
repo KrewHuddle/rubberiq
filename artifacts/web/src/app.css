@@ -1,0 +1,16 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-rb-bg: var(--rb-bg);
+  --color-rb-fg: var(--rb-fg);
+  --color-rb-accent: var(--rb-accent);
+  --font-display: var(--rb-font-display);
+  --font-body: var(--rb-font-body);
+  --font-mono: var(--rb-font-mono);
+}
+
+#root {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}

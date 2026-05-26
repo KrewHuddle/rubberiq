@@ -1,0 +1,28 @@
+{
+  "name": "rubberiq",
+  "version": "0.0.0",
+  "license": "UNLICENSED",
+  "private": true,
+  "description": "RubberIQ — AI-first ops platform for used tire shops (Guru Boxz Technologies LLC).",
+  "scripts": {
+    "preinstall": "sh -c 'rm -f package-lock.json yarn.lock; case \"$npm_config_user_agent\" in pnpm/*) ;; *) echo \"Use pnpm instead\" >&2; exit 1 ;; esac'",
+    "build": "pnpm run typecheck:libs && pnpm -r --if-present run build",
+    "start": "pnpm --filter @rubberiq/api-server start",
+    "dev:api": "pnpm --filter @rubberiq/api-server dev",
+    "dev:web": "pnpm --filter @rubberiq/web dev",
+    "typecheck:libs": "tsc --build",
+    "typecheck": "pnpm run typecheck:libs && pnpm -r --if-present run typecheck",
+    "db:generate": "pnpm --filter @rubberiq/db generate",
+    "db:migrate": "pnpm --filter @rubberiq/db migrate",
+    "db:seed": "pnpm --filter @rubberiq/scripts seed"
+  },
+  "devDependencies": {
+    "prettier": "^3.8.1",
+    "tsx": "^4.21.0",
+    "typescript": "~5.9.2"
+  },
+  "engines": {
+    "node": "20.x"
+  },
+  "packageManager": "pnpm@9.15.4"
+}

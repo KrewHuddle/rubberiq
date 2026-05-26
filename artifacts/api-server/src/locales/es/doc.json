@@ -1,0 +1,18 @@
+{
+  "saleDoc": {
+    "title": "Divulgación de Venta de Llanta Usada",
+    "tire": "Llanta",
+    "size": "Medida",
+    "dot": "Código DOT",
+    "age": "Antigüedad (meses)",
+    "treadDepth": "Profundidad de banda (32avos)",
+    "grade": "Clasificación",
+    "soldAsIs": "Vendida tal cual. Inspeccione antes de instalar.",
+    "ageDisclosure": "Esta llanta tiene más de {{months}} meses. El comprador reconoce haber recibido la divulgación de antigüedad.",
+    "signature": "Firma del cliente",
+    "date": "Fecha"
+  },
+  "errors": {
+    "tireFailedGrading": "Esta llanta no pasó la clasificación de seguridad y no puede venderse."
+  }
+}

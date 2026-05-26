@@ -1,0 +1,36 @@
+{
+  "appName": "RubberIQ",
+  "tagline": "AI-first ops for used tire shops.",
+  "actions": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "retry": "Retry",
+    "next": "Next",
+    "back": "Back",
+    "submit": "Submit",
+    "sign": "Sign",
+    "print": "Print"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "intake": "Intake",
+    "inventory": "Inventory",
+    "customers": "Customers",
+    "scrap": "Scrap",
+    "settings": "Settings",
+    "admin": "Admin",
+    "sales": "Sales",
+    "demo": "Demo",
+    "signIn": "Sign in",
+    "signOut": "Sign out"
+  },
+  "languages": {
+    "en": "English",
+    "es": "Español"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark"
+  }
+}

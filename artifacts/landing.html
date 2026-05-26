@@ -1,0 +1,1752 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="RubberIQ — AI intake, deterministic grading, and disposal compliance for independent used-tire shops. One photo. One grade. One price." />
+<title>RubberIQ — One photo. One grade. One price.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,100,500;12..96,100,600;12..96,100,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+  rel="stylesheet"
+/>
+<style>
+/* Hallmark · macrostructure: Manifesto · genre: modern-minimal · theme: custom
+ * vibe: "industrial intelligence · sodium-vapor diagnostic · restrained"
+ * paper oklch(14% 0.010 60) graphite · accent oklch(72% 0.18 148) sodium-green
+ * fonts: Bricolage Grotesque (display, 700 max, width 100) + Inter + JetBrains Mono
+ * theme axes: dark / grotesque-display / chromatic-green
+ * audit pass: 25/25 findings applied · accent on CTAs + stamp + data only
+ * pre-emit critique: P5 H5 E5 S5 R5 V5
+ */
+
+:root {
+  --font-display: "Bricolage Grotesque", "Inter", system-ui, -apple-system, sans-serif;
+  --font-body:    "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  --text-xs:        0.75rem;
+  --text-sm:        0.875rem;
+  --text-base:      1rem;
+  --text-lg:        1.125rem;
+  --text-xl:        1.375rem;
+  --text-2xl:       1.75rem;
+  --text-3xl:       2.5rem;
+  --text-4xl:       3.5rem;
+  --text-display:   5rem;
+  --text-display-l: 6.5rem;
+
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  /* paper · graphite stack */
+  --color-paper:        oklch(14% 0.010 60);
+  --color-paper-2:      oklch(18% 0.012 60);
+  --color-paper-3:      oklch(22% 0.014 60);
+  --color-paper-4:      oklch(28% 0.014 60);
+
+  /* ink */
+  --color-ink:          oklch(98% 0.005 90);
+  --color-ink-2:        oklch(80% 0.008 60);
+  --color-ink-3:        oklch(60% 0.008 60);
+  --color-ink-4:        oklch(42% 0.010 60);
+
+  /* rules */
+  --color-rule:         oklch(28% 0.010 60);
+  --color-rule-strong:  oklch(46% 0.012 60);
+
+  /* accent · sodium-vapor diagnostic green (calmer chroma) */
+  --color-accent:       oklch(72% 0.18 148);
+  --color-accent-2:     oklch(66% 0.20 148);
+  --color-accent-fg:    oklch(12% 0.012 60);
+
+  --color-warm:         oklch(74% 0.15 50);
+  --color-focus:        oklch(72% 0.18 148);
+  --color-success:      oklch(72% 0.18 148);
+  --color-error:        oklch(62% 0.22 25);
+
+  --radius-none: 0;
+  --radius-xs:   2px;
+  --radius-sm:   4px;
+
+  --rule-hair:    1px solid var(--color-rule);
+  --rule-mid:     1px solid var(--color-rule-strong);
+  --rule-ink:     2px solid var(--color-ink-2);
+  --rule-accent:  2px solid var(--color-accent);
+
+  --dur-instant: 90ms;
+  --dur-fast:    160ms;
+  --dur-base:    240ms;
+  --dur-reveal:  500ms;
+  --ease-out:    cubic-bezier(0.2, 0, 0, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================================
+   Resets · mobile safety
+============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { overflow-x: clip; }
+html { -webkit-text-size-adjust: 100%; text-rendering: optimizeLegibility; }
+
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, svg { display: block; max-width: 100%; height: auto; }
+::selection { background: var(--color-accent); color: var(--color-accent-fg); }
+
+/* ============================================================
+   Layout primitives
+============================================================ */
+
+.wrap {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+@media (min-width: 1024px) { .wrap { padding: 0 var(--space-10); } }
+
+.reveal { opacity: 0; transform: translateY(8px); transition: opacity var(--dur-reveal) var(--ease-out), transform var(--dur-reveal) var(--ease-out); }
+.reveal.is-in { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+/* small mono kicker — one pattern for ALL section + hero eyebrows */
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-ink-3);
+  font-weight: 500;
+}
+.kicker::before { content: ""; width: 28px; height: 1px; background: var(--color-rule-strong); }
+.kicker--accent { color: var(--color-accent); }
+.kicker--accent::before { background: var(--color-accent); }
+
+/* ============================================================
+   Header
+============================================================ */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: color-mix(in oklch, var(--color-paper) 92%, transparent);
+  backdrop-filter: blur(10px) saturate(140%);
+  border-bottom: var(--rule-hair);
+}
+
+.site-header__inner {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-4);
+  height: 64px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-lg);
+  letter-spacing: -0.03em;
+  color: var(--color-ink);
+  text-decoration: none;
+}
+
+.brand__dot {
+  width: 9px; height: 9px;
+  background: var(--color-accent);
+  border-radius: var(--radius-xs);
+  display: inline-block;
+}
+
+.site-header__cta { display: flex; align-items: center; gap: var(--space-3); justify-self: end; }
+
+@media (max-width: 539px) {
+  .site-header__inner { height: 56px; }
+  .site-header__cta .btn--quiet { display: none; }
+}
+
+/* ============================================================
+   Buttons · 8 states · square radius, no glow, no Y-lift
+============================================================ */
+
+.btn {
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: 0 var(--space-5);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  line-height: 1;
+  letter-spacing: -0.005em;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-out);
+}
+
+.btn--lg { min-height: 52px; padding: 0 var(--space-6); font-size: var(--text-base); }
+
+.btn--primary {
+  background: var(--color-accent);
+  color: var(--color-accent-fg);
+  box-shadow: inset 0 0 0 1px var(--color-accent);
+}
+.btn--primary:hover, .btn--primary.is-hover {
+  background: var(--color-accent-2);
+  box-shadow: inset 0 0 0 1px var(--color-accent-2);
+}
+.btn--primary:active, .btn--primary.is-active { transform: translateY(1px); }
+
+.btn--ghost {
+  background: transparent;
+  color: var(--color-ink);
+  box-shadow: inset 0 0 0 1px var(--color-rule-strong);
+}
+.btn--ghost:hover, .btn--ghost.is-hover {
+  color: var(--color-accent-fg);
+  background: var(--color-ink);
+  box-shadow: inset 0 0 0 1px var(--color-ink);
+}
+.btn--ghost:active, .btn--ghost.is-active { transform: translateY(1px); }
+
+.btn--quiet {
+  background: transparent;
+  color: var(--color-ink-2);
+  padding: 0 var(--space-3);
+}
+.btn--quiet:hover, .btn--quiet.is-hover { color: var(--color-ink); }
+
+.btn:focus-visible, .btn.is-focus {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+}
+.btn:disabled, .btn.is-disabled { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
+
+.btn[data-state="loading"] { cursor: progress; pointer-events: none; }
+.btn[data-state="loading"]::before {
+  content: ""; width: 0.85em; height: 0.85em;
+  border: 1.5px solid currentColor; border-right-color: transparent;
+  border-radius: 50%; animation: spin 720ms linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.btn[data-state="error"] { background: var(--color-error); color: var(--color-ink); box-shadow: inset 0 0 0 1px var(--color-error); }
+.btn[data-state="error"]::before { content: "!"; font-weight: 700; }
+
+.btn[data-state="success"] { background: var(--color-success); color: var(--color-accent-fg); box-shadow: inset 0 0 0 1px var(--color-success); }
+.btn[data-state="success"]::before { content: "✓"; font-weight: 700; }
+
+/* ============================================================
+   Hero · Manifesto
+============================================================ */
+
+.hero {
+  position: relative;
+  padding: clamp(var(--space-12), 6vw, var(--space-20)) 0 clamp(var(--space-12), 6vw, var(--space-20));
+  border-bottom: var(--rule-hair);
+}
+
+.hero__main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-10);
+  align-items: center;
+}
+@media (min-width: 920px) {
+  .hero__main {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: clamp(var(--space-8), 3vw, var(--space-12));
+  }
+}
+
+.hero__copy { min-width: 0; }
+.hero__kicker { margin-bottom: var(--space-6); }
+
+.hero__h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.75rem, 8vw, var(--text-display-l));
+  line-height: 0.96;
+  letter-spacing: -0.035em;
+  color: var(--color-ink);
+  margin: 0 0 var(--space-6);
+  max-width: 14ch;
+  overflow-wrap: break-word;
+  min-width: 0;
+  text-wrap: balance;
+}
+
+.hero__h1 .accent {
+  color: var(--color-accent);
+  position: relative;
+}
+
+.hero__lede {
+  font-size: clamp(var(--text-lg), 1.6vw, var(--text-xl));
+  color: var(--color-ink-2);
+  max-width: 58ch;
+  margin: 0 0 var(--space-8);
+  line-height: 1.5;
+}
+
+.hero__cta { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-bottom: var(--space-8); }
+
+.hero__trust {
+  display: flex; flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-6);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-ink-3);
+}
+.hero__trust span { display: inline-flex; align-items: center; gap: var(--space-2); }
+.hero__trust span::before { content: ""; width: 16px; height: 1px; background: var(--color-rule-strong); }
+
+/* ---- hero demo · intake reveal in right column ---- */
+
+.hero__demo-svg {
+  position: relative;
+  min-width: 0;
+  aspect-ratio: 5 / 4;
+  background: var(--color-paper-2);
+  border: var(--rule-hair);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.hero__payoff {
+  margin-top: clamp(var(--space-10), 5vw, var(--space-16));
+  padding-top: clamp(var(--space-8), 4vw, var(--space-12));
+  border-top: var(--rule-hair);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-6);
+}
+
+@media (min-width: 720px) {
+  .hero__payoff {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-8);
+  }
+}
+
+.hero__payoff-label {
+  grid-column: 1 / -1;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ink-3);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+.hero__payoff-label::before { content: ""; width: 28px; height: 1px; background: var(--color-rule-strong); }
+
+.hero__demo-svg svg { width: 100%; height: 100%; display: block; }
+
+.tire-bg .tread        { fill: oklch(20% 0.012 60); }
+.tire-bg .sidewall     { fill: oklch(26% 0.012 60); }
+.tire-bg .hub          { fill: var(--color-paper-3); stroke: var(--color-ink-3); stroke-width: 1.5; }
+.tire-bg .spoke        { stroke: var(--color-ink-3); stroke-width: 2; opacity: 0.85; }
+.tire-bg .ring         { stroke: var(--color-ink-3); stroke-width: 1.5; fill: none; opacity: 0.7; }
+.tire-bg .tick         { stroke: var(--color-ink-3); stroke-width: 2; opacity: 0.7; }
+.tire-bg .callout      { stroke: var(--color-ink-4); stroke-width: 1; fill: none; }
+.tire-bg .callout-dot  { fill: var(--color-accent); }
+.tire-bg text {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  fill: var(--color-ink-2);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.tire-bg text.unit { fill: var(--color-accent); font-weight: 500; }
+
+.payoff-step {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: var(--space-4);
+  align-items: baseline;
+  padding: var(--space-5);
+  background: var(--color-paper-2);
+  border: var(--rule-hair);
+  border-radius: var(--radius-sm);
+  min-width: 0;
+}
+
+.payoff-step__num {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-ink-3);
+  padding-top: 0.25em;
+}
+
+.payoff-step__val {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--color-ink);
+  overflow-wrap: break-word;
+  min-width: 0;
+}
+
+.payoff-step__val.is-mega { font-size: clamp(var(--text-3xl), 5vw, var(--text-4xl)); }
+.payoff-step__val.is-mid  { font-size: clamp(var(--text-xl), 2.4vw, var(--text-2xl)); }
+
+.payoff-step__val .price-dollar { color: var(--color-accent); font-weight: 600; }
+.payoff-step__val .price-num    { color: var(--color-ink); font-variant-numeric: tabular-nums; }
+
+.grade-stamp {
+  display: inline-grid;
+  place-items: center;
+  width: 1.1em; height: 1.1em;
+  background: var(--color-accent);
+  color: var(--color-accent-fg);
+  border-radius: var(--radius-xs);
+  font-weight: 700;
+  margin-right: 0.15em;
+}
+
+.payoff-step__sub {
+  display: block;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--text-sm);
+  color: var(--color-ink-3);
+  letter-spacing: 0;
+  text-transform: none;
+  margin-top: var(--space-2);
+  line-height: 1.5;
+}
+
+/* ============================================================
+   Brand band — calm replacement for marquee
+============================================================ */
+
+.brandband {
+  background: var(--color-paper-2);
+  border-top: var(--rule-hair);
+  border-bottom: var(--rule-hair);
+  padding: var(--space-5) 0;
+  overflow: hidden;
+}
+
+.brandband__track {
+  display: flex;
+  width: max-content;
+  animation: brand-roll 50s linear infinite;
+  gap: var(--space-10);
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: var(--text-xs);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-ink-2);
+  white-space: nowrap;
+}
+
+.brandband__item { display: inline-flex; align-items: center; gap: var(--space-4); }
+.brandband__item::after {
+  content: "";
+  width: 5px; height: 5px;
+  background: var(--color-accent);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+@keyframes brand-roll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .brandband__track { animation: none; }
+}
+
+/* ============================================================
+   Section base — tighter padding
+============================================================ */
+
+.section {
+  padding: clamp(var(--space-16), 8vw, var(--space-24)) 0;
+  border-bottom: var(--rule-hair);
+  position: relative;
+}
+
+.sec-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+  margin: 0 0 clamp(var(--space-10), 5vw, var(--space-16));
+}
+
+.sec-head__main { max-width: 42ch; min-width: 0; display: grid; gap: var(--space-4); }
+
+@media (min-width: 880px) {
+  .sec-head {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1.1fr);
+    gap: clamp(var(--space-8), 4vw, var(--space-16));
+    align-items: end;
+  }
+}
+
+.sec-head__poster {
+  display: none;
+}
+
+@media (min-width: 880px) {
+  .sec-head__poster {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(var(--text-4xl), 9vw, var(--text-display-l));
+    line-height: 0.82;
+    letter-spacing: -0.06em;
+    color: var(--color-ink-4);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    user-select: none;
+    align-self: end;
+    overflow: hidden;
+    min-width: 0;
+  }
+  .sec-head__poster .section-mark {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-xs);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-ink-3);
+    display: block;
+    margin-bottom: var(--space-3);
+  }
+  .sec-head__poster .glyph-accent { color: var(--color-accent); }
+}
+
+.sec-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.25rem, 5vw, var(--text-4xl));
+  line-height: 1.0;
+  letter-spacing: -0.035em;
+  margin: 0;
+  color: var(--color-ink);
+  overflow-wrap: break-word;
+  min-width: 0;
+}
+
+.sec-title .accent {
+  color: var(--color-ink);
+  border-bottom: 2px solid var(--color-accent);
+  padding-bottom: 0.04em;
+}
+
+.sec-deck {
+  font-size: var(--text-lg);
+  color: var(--color-ink-2);
+  margin: var(--space-3) 0 0;
+  max-width: 58ch;
+  line-height: 1.5;
+}
+
+/* ============================================================
+   § 01 Problem
+============================================================ */
+
+.problem-list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  list-style: none; padding: 0; margin: 0;
+  border-top: var(--rule-hair);
+}
+
+.problem-entry {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+  padding: var(--space-8) 0;
+  border-bottom: var(--rule-hair);
+  list-style: none;
+}
+
+@media (min-width: 880px) {
+  .problem-entry {
+    grid-template-columns: minmax(120px, 0.5fr) minmax(0, 3fr) minmax(0, 2fr);
+    gap: var(--space-10);
+    align-items: baseline;
+    padding: var(--space-10) 0;
+  }
+}
+
+.problem-mark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(var(--text-2xl), 3.5vw, var(--text-3xl));
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: var(--color-ink-4);
+  font-variant-numeric: tabular-nums;
+}
+
+.problem-head {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(var(--text-xl), 2.4vw, var(--text-2xl));
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: var(--color-ink);
+  margin: 0;
+}
+
+.problem-body {
+  color: var(--color-ink-2);
+  margin: 0;
+  font-size: var(--text-base);
+  max-width: 44ch;
+  line-height: 1.55;
+}
+
+.problem-body em {
+  font-style: normal;
+  color: var(--color-ink);
+  border-bottom: 2px solid var(--color-accent);
+  padding-bottom: 1px;
+}
+
+/* ============================================================
+   § 02 How it works
+============================================================ */
+
+.flow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-6);
+  list-style: none; padding: 0; margin: 0;
+}
+
+@media (min-width: 900px) {
+  .flow { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+.flow-step {
+  position: relative;
+  padding: var(--space-8);
+  background: var(--color-paper-2);
+  border: var(--rule-hair);
+  border-radius: var(--radius-sm);
+  list-style: none;
+  min-width: 0;
+}
+
+.flow-step__rank {
+  position: absolute;
+  top: var(--space-5); right: var(--space-6);
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: var(--text-xs);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-ink-3);
+}
+
+.flow-step__icon {
+  display: grid;
+  place-items: center;
+  width: 44px; height: 44px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-rule-strong);
+  background: var(--color-paper-3);
+  color: var(--color-ink);
+  margin-bottom: var(--space-6);
+}
+.flow-step__icon svg { width: 22px; height: 22px; }
+
+.flow-step__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(var(--text-xl), 2.2vw, var(--text-2xl));
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: var(--color-ink);
+  margin: 0 0 var(--space-3);
+  overflow-wrap: break-word;
+  min-width: 0;
+}
+
+.flow-step__body {
+  font-size: var(--text-sm);
+  color: var(--color-ink-2);
+  margin: 0 0 var(--space-6);
+  line-height: 1.55;
+}
+
+.flow-step__io {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr);
+  gap: var(--space-2) var(--space-3);
+  padding-top: var(--space-4);
+  border-top: var(--rule-hair);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}
+.flow-step__io dt { color: var(--color-ink-3); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; }
+.flow-step__io dd { color: var(--color-ink-2); margin: 0; }
+
+/* ============================================================
+   § 03 Features
+============================================================ */
+
+.features {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+}
+
+.feature {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-6);
+  padding: var(--space-10) 0;
+  border-top: var(--rule-hair);
+  position: relative;
+}
+
+@media (min-width: 920px) {
+  .feature {
+    grid-template-columns: 140px minmax(0, 5fr) minmax(0, 4fr);
+    gap: var(--space-10);
+    padding: var(--space-12) 0;
+    align-items: start;
+  }
+}
+
+.feature:first-child { border-top: var(--rule-mid); }
+.feature:last-child { border-bottom: var(--rule-mid); }
+
+.feature__rank {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ink-3);
+  font-weight: 500;
+}
+.feature__rank b {
+  display: block;
+  color: var(--color-accent);
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+}
+
+.feature__main { min-width: 0; }
+
+.feature__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(var(--text-2xl), 3vw, var(--text-3xl));
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  color: var(--color-ink);
+  margin: 0 0 var(--space-4);
+  max-width: 24ch;
+  overflow-wrap: break-word;
+  min-width: 0;
+}
+.feature__title em {
+  font-style: normal;
+  color: var(--color-ink);
+  border-bottom: 2px solid var(--color-accent);
+  padding-bottom: 0.04em;
+}
+
+.feature__body {
+  font-size: var(--text-base);
+  color: var(--color-ink-2);
+  margin: 0 0 var(--space-6);
+  max-width: 52ch;
+  line-height: 1.6;
+}
+
+.feature__spec {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  border-top: var(--rule-hair);
+}
+.feature__spec > div {
+  display: grid;
+  grid-template-columns: 140px minmax(0, 1fr);
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-bottom: var(--rule-hair);
+  font-size: var(--text-sm);
+}
+.feature__spec dt {
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--color-ink-3); align-self: start;
+  padding-top: 0.2em; font-weight: 500;
+}
+.feature__spec dd { margin: 0; color: var(--color-ink); }
+
+.feature__aside {
+  background: var(--color-paper-2);
+  border: var(--rule-hair);
+  border-radius: var(--radius-sm);
+  padding: var(--space-6);
+  min-width: 0;
+}
+
+.feature__aside-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ink-3);
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: var(--rule-hair);
+  font-weight: 500;
+}
+
+.aside-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-3);
+  align-items: baseline;
+  padding: var(--space-2) 0;
+  font-size: var(--text-sm);
+}
+.aside-row + .aside-row { border-top: var(--rule-hair); }
+
+.aside-row__k { font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.06em; color: var(--color-ink-3); text-transform: uppercase; }
+.aside-row__v { color: var(--color-ink); font-variant-numeric: tabular-nums; min-width: 0; }
+.aside-row__v.is-accent { color: var(--color-accent); font-family: var(--font-mono); font-weight: 600; }
+
+/* ============================================================
+   § 04 Social proof
+============================================================ */
+
+.proof {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-10);
+}
+
+@media (min-width: 920px) {
+  .proof { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: var(--space-12); align-items: start; }
+}
+
+.quote {
+  position: relative;
+  padding: var(--space-8);
+  border: var(--rule-mid);
+  border-radius: var(--radius-sm);
+  background: var(--color-paper-2);
+  min-width: 0;
+}
+
+.quote__mark {
+  position: absolute;
+  top: calc(var(--space-3) * -1);
+  left: var(--space-6);
+  background: var(--color-paper);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-warm);
+  padding: 0 var(--space-3);
+  font-weight: 500;
+}
+
+.quote__body {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(var(--text-lg), 2vw, var(--text-xl));
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: var(--color-ink-2);
+  margin: 0 0 var(--space-6);
+  max-width: 36ch;
+}
+
+.quote__attrib {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-3);
+  padding-top: var(--space-4);
+  border-top: var(--rule-hair);
+  font-size: var(--text-sm);
+  color: var(--color-ink-3);
+}
+.quote__attrib b { display: block; color: var(--color-ink); font-weight: 600; }
+
+.proof__note {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-warm);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+  font-weight: 500;
+}
+.proof__note::before { content: ""; width: 16px; height: 1px; background: var(--color-warm); }
+
+.logos { min-width: 0; }
+
+.logos__label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ink-3);
+  margin: 0 0 var(--space-4);
+}
+
+.logos__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+@media (min-width: 560px) { .logos__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+.logo-slot {
+  display: grid;
+  place-items: center;
+  border: 1px dashed var(--color-rule-strong);
+  border-radius: var(--radius-xs);
+  aspect-ratio: 5 / 2;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ink-3);
+  text-align: center;
+  padding: var(--space-2);
+  min-width: 0;
+}
+.logo-slot b { display: block; color: var(--color-ink-2); font-weight: 500; }
+
+/* ============================================================
+   § 05 Pricing teaser
+============================================================ */
+
+.price-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-8);
+  border: var(--rule-mid);
+  border-radius: var(--radius-sm);
+  padding: clamp(var(--space-8), 4vw, var(--space-10));
+  background: var(--color-paper-2);
+}
+
+@media (min-width: 880px) {
+  .price-card { grid-template-columns: minmax(0, 1fr) auto; gap: var(--space-12); align-items: center; }
+}
+
+.price-card__num {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.price-card__amt {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(3.25rem, 7vw, var(--text-display));
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+  color: var(--color-ink);
+  font-variant-numeric: tabular-nums;
+}
+.price-card__amt .dollar { color: var(--color-accent); font-size: 0.6em; vertical-align: top; font-weight: 600; }
+
+.price-card__cad {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-ink-3);
+  font-weight: 500;
+}
+
+.price-card__body {
+  font-size: var(--text-base);
+  color: var(--color-ink-2);
+  margin: 0 0 var(--space-3);
+  max-width: 54ch;
+  line-height: 1.55;
+}
+
+.price-card__fine {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-ink-3);
+  margin: 0;
+  font-weight: 500;
+}
+
+.price-card__cta { display: flex; flex-direction: column; gap: var(--space-3); min-width: 0; }
+
+/* ============================================================
+   § 06 Final CTA · solid accent panel, no stripes
+============================================================ */
+
+.final {
+  padding: clamp(var(--space-16), 9vw, var(--space-24)) 0;
+  background: var(--color-accent);
+  color: var(--color-accent-fg);
+  border-bottom: 0;
+}
+
+.final__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-8);
+  align-items: end;
+}
+
+@media (min-width: 880px) {
+  .final__inner { grid-template-columns: minmax(0, 1fr) auto; gap: var(--space-12); }
+}
+
+.final__kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-accent-fg);
+  font-weight: 600;
+  margin-bottom: var(--space-6);
+}
+.final__kicker::before { content: ""; width: 28px; height: 1px; background: var(--color-accent-fg); }
+
+.final__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.75rem, 7vw, var(--text-display));
+  line-height: 0.96;
+  letter-spacing: -0.04em;
+  color: var(--color-accent-fg);
+  margin: 0 0 var(--space-6);
+  max-width: 14ch;
+  overflow-wrap: break-word;
+  min-width: 0;
+}
+
+.final__body {
+  font-size: var(--text-lg);
+  color: var(--color-accent-fg);
+  opacity: 0.85;
+  margin: 0 0 var(--space-8);
+  max-width: 52ch;
+}
+
+.final__cta { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+
+.final .btn--primary {
+  background: var(--color-accent-fg);
+  color: var(--color-accent);
+  box-shadow: inset 0 0 0 1px var(--color-accent-fg);
+}
+.final .btn--primary:hover, .final .btn--primary.is-hover {
+  background: var(--color-paper);
+  color: var(--color-accent);
+  box-shadow: inset 0 0 0 1px var(--color-paper);
+}
+
+.final .btn--ghost {
+  color: var(--color-accent-fg);
+  box-shadow: inset 0 0 0 1px var(--color-accent-fg);
+}
+.final .btn--ghost:hover, .final .btn--ghost.is-hover {
+  background: var(--color-accent-fg);
+  color: var(--color-accent);
+  box-shadow: inset 0 0 0 1px var(--color-accent-fg);
+}
+
+/* ============================================================
+   Footer
+============================================================ */
+
+.site-footer {
+  background: var(--color-paper);
+  padding: clamp(var(--space-12), 6vw, var(--space-16)) 0 var(--space-8);
+}
+
+.site-footer__statement {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(var(--text-2xl), 4vw, var(--text-3xl));
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--color-ink);
+  margin: 0 0 var(--space-10);
+  max-width: 22ch;
+}
+.site-footer__statement em {
+  font-style: normal;
+  color: var(--color-ink);
+  border-bottom: 2px solid var(--color-accent);
+  padding-bottom: 0.04em;
+}
+
+.site-footer__meta {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-6);
+  padding-top: var(--space-6);
+  border-top: var(--rule-hair);
+  font-size: var(--text-sm);
+  color: var(--color-ink-3);
+}
+
+@media (min-width: 720px) {
+  .site-footer__meta { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-8); align-items: end; }
+}
+
+.site-footer__meta b { color: var(--color-ink); font-weight: 600; display: block; margin-bottom: 2px; }
+.site-footer__meta a { color: var(--color-ink); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--color-rule-strong); }
+.site-footer__meta a:hover { text-decoration-color: var(--color-accent); color: var(--color-accent); }
+
+.site-footer__rev {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-ink-3);
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     Header
+============================================================ -->
+<header class="site-header" role="banner">
+  <div class="wrap site-header__inner">
+    <a class="brand" href="#" aria-label="RubberIQ home">
+      <span class="brand__dot" aria-hidden="true"></span>
+      <span class="brand__mark">RubberIQ</span>
+    </a>
+    <span aria-hidden="true"></span>
+    <div class="site-header__cta">
+      <a class="btn btn--quiet" href="#sign-in">Sign in</a>
+      <a class="btn btn--primary" href="#demo">Book a demo</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================================================
+       Hero
+  ============================================================ -->
+  <section class="hero" aria-labelledby="hero-h">
+    <div class="wrap">
+
+      <div class="hero__main">
+        <div class="hero__copy reveal">
+          <div class="hero__kicker kicker">AI ops · independent used-tire shops</div>
+
+          <h1 id="hero-h" class="hero__h1">
+            One photo. One <span class="accent">grade</span>. One price.
+          </h1>
+
+          <p class="hero__lede">
+            RubberIQ is the AI intake, deterministic grading, and disposal-compliance
+            system built for independent used-tire shops. The clipboard goes in the
+            drawer. The shop runs on rubber, not paper.
+          </p>
+
+          <div class="hero__cta">
+            <a class="btn btn--primary btn--lg" href="#demo">Book a demo</a>
+            <a class="btn btn--ghost btn--lg" href="#trial">Start free trial</a>
+          </div>
+
+          <div class="hero__trust" role="list">
+            <span role="listitem">30-day trial · no card</span>
+            <span role="listitem">English &amp; Spanish</span>
+            <span role="listitem">Installs on any phone</span>
+          </div>
+        </div>
+
+        <figure class="hero__demo-svg reveal" aria-label="Sample intake — photo to grade to price in 218 milliseconds.">
+          <svg class="tire-bg" viewBox="0 0 640 440" preserveAspectRatio="xMidYMid meet">
+            <circle class="sidewall" cx="320" cy="220" r="190" />
+            <circle class="tread"    cx="320" cy="220" r="190" />
+            <circle cx="320" cy="220" r="150" fill="var(--color-paper-2)" />
+
+            <g class="tick">
+              <line x1="320" y1="30"  x2="320" y2="70" />
+              <line x1="450" y1="55"  x2="438" y2="92" />
+              <line x1="528" y1="125" x2="500" y2="142" />
+              <line x1="510" y1="220" x2="475" y2="220" />
+              <line x1="528" y1="315" x2="500" y2="298" />
+              <line x1="450" y1="385" x2="438" y2="348" />
+              <line x1="320" y1="410" x2="320" y2="370" />
+              <line x1="190" y1="385" x2="202" y2="348" />
+              <line x1="112" y1="315" x2="140" y2="298" />
+              <line x1="130" y1="220" x2="165" y2="220" />
+              <line x1="112" y1="125" x2="140" y2="142" />
+              <line x1="190" y1="55"  x2="202" y2="92" />
+            </g>
+
+            <circle class="ring" cx="320" cy="220" r="90" />
+            <g class="spoke">
+              <line x1="320" y1="135" x2="320" y2="305" />
+              <line x1="235" y1="220" x2="405" y2="220" />
+              <line x1="259" y1="159" x2="381" y2="281" />
+              <line x1="259" y1="281" x2="381" y2="159" />
+            </g>
+            <circle class="hub" cx="320" cy="220" r="20" />
+
+            <g>
+              <line class="callout" x1="320" y1="30"  x2="320" y2="14" />
+              <line class="callout" x1="320" y1="14"  x2="500" y2="14" />
+              <circle class="callout-dot" cx="320" cy="30" r="4" />
+              <text x="500" y="12" text-anchor="end">SIZE</text>
+              <text x="500" y="28" text-anchor="end" class="unit">225 / 65 R17</text>
+            </g>
+
+            <g>
+              <line class="callout" x1="510" y1="220" x2="615" y2="220" />
+              <line class="callout" x1="615" y1="220" x2="615" y2="195" />
+              <circle class="callout-dot" cx="510" cy="220" r="4" />
+              <text x="612" y="185" text-anchor="end">DOT</text>
+              <text x="612" y="212" text-anchor="end" class="unit">2423</text>
+            </g>
+
+            <g>
+              <line class="callout" x1="130" y1="220" x2="25"  y2="220" />
+              <line class="callout" x1="25"  y1="220" x2="25"  y2="195" />
+              <circle class="callout-dot" cx="130" cy="220" r="4" />
+              <text x="28" y="185">TREAD</text>
+              <text x="28" y="212" class="unit">7 / 32"</text>
+            </g>
+
+            <g>
+              <line class="callout" x1="438" y1="348" x2="510" y2="404" />
+              <line class="callout" x1="510" y1="404" x2="615" y2="404" />
+              <circle class="callout-dot" cx="438" cy="348" r="4" />
+              <text x="612" y="397" text-anchor="end">AGE</text>
+              <text x="612" y="424" text-anchor="end" class="unit">18 MO</text>
+            </g>
+
+            <g>
+              <line class="callout" x1="202" y1="348" x2="130" y2="404" />
+              <line class="callout" x1="130" y1="404" x2="25"  y2="404" />
+              <circle class="callout-dot" cx="202" cy="348" r="4" />
+              <text x="28" y="397">FLAGS</text>
+              <text x="28" y="424" class="unit">— NONE</text>
+            </g>
+          </svg>
+        </figure>
+      </div><!-- /.hero__main -->
+
+      <div class="hero__payoff reveal">
+        <div class="hero__payoff-label">Sample intake · photo → grade → price in 218 ms</div>
+
+        <div class="payoff-step">
+          <div class="payoff-step__num">01</div>
+          <div class="payoff-step__val is-mid">
+            Snap.
+            <span class="payoff-step__sub">Counter person photographs the sidewall.</span>
+          </div>
+        </div>
+
+        <div class="payoff-step">
+          <div class="payoff-step__num">02</div>
+          <div class="payoff-step__val is-mega">
+            <span class="grade-stamp">B</span>
+            <span class="payoff-step__sub">Grade resolved · 7/32" · 18 mo · no flags.</span>
+          </div>
+        </div>
+
+        <div class="payoff-step">
+          <div class="payoff-step__num">03</div>
+          <div class="payoff-step__val is-mega">
+            <span class="price-dollar">$</span><span class="price-num">65</span>
+            <span class="payoff-step__sub">Priced against live wholesale · margin held.</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Brand band — calm replacement for marquee
+  ============================================================ -->
+  <div class="brandband" aria-hidden="true">
+    <div class="brandband__track">
+      <span class="brandband__item">Used tires</span>
+      <span class="brandband__item">Graded</span>
+      <span class="brandband__item">Priced</span>
+      <span class="brandband__item">Sold</span>
+      <span class="brandband__item">Scrapped</span>
+      <span class="brandband__item">Hauled</span>
+      <span class="brandband__item">Used tires</span>
+      <span class="brandband__item">Graded</span>
+      <span class="brandband__item">Priced</span>
+      <span class="brandband__item">Sold</span>
+      <span class="brandband__item">Scrapped</span>
+      <span class="brandband__item">Hauled</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       § 01 The Problem
+  ============================================================ -->
+  <section class="section" id="problem" aria-labelledby="problem-h">
+    <div class="wrap">
+      <header class="sec-head reveal">
+        <div class="sec-head__main">
+          <div class="kicker">§ 01 · Problem</div>
+          <h2 id="problem-h" class="sec-title">The shop runs on <span class="accent">paper</span>. It shouldn't.</h2>
+        </div>
+        <div class="sec-head__poster" aria-hidden="true">
+          <span class="section-mark">Pain points · 3</span>
+          01<span class="glyph-accent">.</span>
+        </div>
+      </header>
+
+      <ol class="problem-list" role="list">
+        <li class="problem-entry reveal">
+          <div class="problem-mark">01</div>
+          <h3 class="problem-head">The clipboard runs intake.</h3>
+          <p class="problem-body">
+            Three pads of paper at the counter. Two whiteboards in the bay. One
+            customer at the door waiting for a number you <em>can't quite give them</em>.
+          </p>
+        </li>
+
+        <li class="problem-entry reveal">
+          <div class="problem-mark">02</div>
+          <h3 class="problem-head">Pricing a used tire is a guess.</h3>
+          <p class="problem-body">
+            Same tread, same DOT, two different counter people, two different
+            grades. Two different prices. <em>The margin walks out the door.</em>
+          </p>
+        </li>
+
+        <li class="problem-entry reveal">
+          <div class="problem-mark">03</div>
+          <h3 class="problem-head">Disposal is a manila folder.</h3>
+          <p class="problem-body">
+            Scrap manifests live in a drawer. The hauler shows up unannounced.
+            When the auditor visits you turn the shop <em>upside down</em> to
+            prove a tire that left last March.
+          </p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       § 02 How it works
+  ============================================================ -->
+  <section class="section" id="how" aria-labelledby="how-h">
+    <div class="wrap">
+      <header class="sec-head reveal">
+        <div class="sec-head__main">
+          <div class="kicker">§ 02 · How it works</div>
+          <h2 id="how-h" class="sec-title"><span class="accent">Three handoffs</span>. Photo to price in under a minute.</h2>
+        </div>
+        <div class="sec-head__poster" aria-hidden="true">
+          <span class="section-mark">Steps · 3</span>
+          02<span class="glyph-accent">.</span>
+        </div>
+      </header>
+
+      <ol class="flow" role="list">
+        <li class="flow-step reveal">
+          <div class="flow-step__rank" aria-hidden="true">Step 01</div>
+          <div class="flow-step__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L8 6H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="4"/></svg>
+          </div>
+          <h3 class="flow-step__title">Intake</h3>
+          <p class="flow-step__body">
+            Counter person opens RubberIQ on the bay-floor phone and snaps the
+            sidewall. That's it. Plate and customer captured in the same screen.
+          </p>
+          <dl class="flow-step__io">
+            <dt>In</dt><dd>Sidewall photo · plate · customer</dd>
+            <dt>By</dt><dd>Counter or tech on the floor</dd>
+          </dl>
+        </li>
+
+        <li class="flow-step reveal">
+          <div class="flow-step__rank" aria-hidden="true">Step 02</div>
+          <div class="flow-step__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <h3 class="flow-step__title">Intelligence</h3>
+          <p class="flow-step__body">
+            Vision reads size and DOT. Deterministic grader assigns A/B/C/D/FAIL
+            on your rules. Pricer benchmarks to live wholesale. Tire enters
+            inventory.
+          </p>
+          <dl class="flow-step__io">
+            <dt>In</dt><dd>Photo · your grading constants</dd>
+            <dt>By</dt><dd>RubberIQ vision + grading + pricing engine</dd>
+          </dl>
+        </li>
+
+        <li class="flow-step reveal">
+          <div class="flow-step__rank" aria-hidden="true">Step 03</div>
+          <div class="flow-step__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          </div>
+          <h3 class="flow-step__title">Action</h3>
+          <p class="flow-step__body">
+            FAIL grades drop into the scrap queue with a hauler-ready manifest.
+            Sellable tires go on the rack with a price. Customer hears a real
+            number before they put the wallet away.
+          </p>
+          <dl class="flow-step__io">
+            <dt>Out</dt><dd>Order · waiver · scrap entry · price</dd>
+            <dt>For</dt><dd>The customer at the counter</dd>
+          </dl>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       § 03 Features
+  ============================================================ -->
+  <section class="section" id="features" aria-labelledby="features-h">
+    <div class="wrap">
+      <header class="sec-head reveal">
+        <div class="sec-head__main">
+          <div class="kicker">§ 03 · What it does</div>
+          <h2 id="features-h" class="sec-title">Four <span class="accent">moves</span> we make for you.</h2>
+          <p class="sec-deck">
+            Not another POS. RubberIQ sits next to what you already run and replaces
+            the parts of the day you hate. Concrete, not buzzwordy.
+          </p>
+        </div>
+        <div class="sec-head__poster" aria-hidden="true">
+          <span class="section-mark">Features · F-01 → F-04</span>
+          04<span class="glyph-accent">.</span>
+        </div>
+      </header>
+
+      <div class="features" role="list">
+
+        <article class="feature reveal" role="listitem" aria-labelledby="f1-h">
+          <div class="feature__rank"><b>F-01</b>AI Service Intake</div>
+          <div class="feature__main">
+            <h3 id="f1-h" class="feature__title">A used tire becomes an order in <em>9 seconds</em>.</h3>
+            <p class="feature__body">
+              Counter person snaps the sidewall. Vision pulls size + DOT week/year.
+              Grading engine reads tread + age + flags. Pricer benchmarks against
+              live wholesale. English or Spanish, sun or shop-fluorescent, smudged
+              stamp or fresh.
+            </p>
+            <dl class="feature__spec">
+              <div><dt>Reads</dt><dd>Size · load + speed · DOT cohort · sidewall flags</dd></div>
+              <div><dt>Grades</dt><dd>A · B · C · D · FAIL — your constants, your trade secret</dd></div>
+              <div><dt>Works on</dt><dd>Any phone with a camera, online or offline</dd></div>
+            </dl>
+          </div>
+          <aside class="feature__aside">
+            <span class="feature__aside-label">Sample read</span>
+            <div class="aside-row"><span class="aside-row__k">Size</span><span class="aside-row__v">225 / 65 R17</span></div>
+            <div class="aside-row"><span class="aside-row__k">DOT</span><span class="aside-row__v">2423 · 18 mo</span></div>
+            <div class="aside-row"><span class="aside-row__k">Tread</span><span class="aside-row__v">7 / 32"</span></div>
+            <div class="aside-row"><span class="aside-row__k">Grade</span><span class="aside-row__v is-accent">B</span></div>
+            <div class="aside-row"><span class="aside-row__k">Price</span><span class="aside-row__v">$65</span></div>
+          </aside>
+        </article>
+
+        <article class="feature reveal" role="listitem" aria-labelledby="f2-h">
+          <div class="feature__rank"><b>F-02</b>Hybrid Inventory + Wholesaler</div>
+          <div class="feature__main">
+            <h3 id="f2-h" class="feature__title">Your rack <em>plus</em> the wholesaler catalog. One search.</h3>
+            <p class="feature__body">
+              The customer needs four 225/65R17. RubberIQ searches your own used
+              stock AND your wholesaler accounts (Tirewire, TireConnect) in one
+              shot, ranks by landed cost, lets you sell off the rack or order in
+              one click — and locks the price the customer just heard.
+            </p>
+            <dl class="feature__spec">
+              <div><dt>Hits</dt><dd>Your used rack · Tirewire · TireConnect · direct lines</dd></div>
+              <div><dt>Ranks by</dt><dd>Landed cost · in-stock · ship time</dd></div>
+              <div><dt>Locks</dt><dd>Quoted price on the order, not the screen</dd></div>
+            </dl>
+          </div>
+          <aside class="feature__aside">
+            <span class="feature__aside-label">Cost compare — sample</span>
+            <div class="aside-row"><span class="aside-row__k">On rack</span><span class="aside-row__v is-accent">$65 · grade B</span></div>
+            <div class="aside-row"><span class="aside-row__k">Tirewire</span><span class="aside-row__v">$48 · 2 day</span></div>
+            <div class="aside-row"><span class="aside-row__k">TireConnect</span><span class="aside-row__v">$52 · 1 day</span></div>
+            <div class="aside-row"><span class="aside-row__k">Direct</span><span class="aside-row__v">$45 · in stock</span></div>
+          </aside>
+        </article>
+
+        <article class="feature reveal" role="listitem" aria-labelledby="f3-h">
+          <div class="feature__rank"><b>F-03</b>Customer + Vehicle History</div>
+          <div class="feature__main">
+            <h3 id="f3-h" class="feature__title">Plate in. <em>Tire history out.</em></h3>
+            <p class="feature__body">
+              Type a plate, scan a VIN, or pick a name and the customer's whole
+              tire history surfaces — sizes they run, grade mix on the car now,
+              DOT cohort, last visit, what you sold them and when. No paper
+              jacket, no Excel sheet on the back-office PC.
+            </p>
+            <dl class="feature__spec">
+              <div><dt>Indexed by</dt><dd>Plate · phone · VIN · last name · YMM</dd></div>
+              <div><dt>Tracks</dt><dd>Tires on car · grade mix · DOT cohort · sale + scrap log</dd></div>
+              <div><dt>Alerts</dt><dd>Low stock · DOT age check due · scrap pickup window</dd></div>
+            </dl>
+          </div>
+          <aside class="feature__aside">
+            <span class="feature__aside-label">Customer record</span>
+            <div class="aside-row"><span class="aside-row__k">Plate</span><span class="aside-row__v">ABC-1234</span></div>
+            <div class="aside-row"><span class="aside-row__k">Last visit</span><span class="aside-row__v">11 Apr · rotate</span></div>
+            <div class="aside-row"><span class="aside-row__k">Tires on</span><span class="aside-row__v">4 × 225/65R17 · B</span></div>
+            <div class="aside-row"><span class="aside-row__k">Next</span><span class="aside-row__v is-accent">DOT check · 14 days</span></div>
+          </aside>
+        </article>
+
+        <article class="feature reveal" role="listitem" aria-labelledby="f4-h">
+          <div class="feature__rank"><b>F-04</b>Disposal + Compliance</div>
+          <div class="feature__main">
+            <h3 id="f4-h" class="feature__title">Pass the audit <em>without</em> opening a drawer.</h3>
+            <p class="feature__body">
+              FAIL grades auto-route to the scrap queue. RubberIQ builds the NC
+              Scrap-Tire Cert (Parts I + II) and the PA Act 90 manifest the hauler
+              and state need. Three-year retention on every tire, every date,
+              every signature. <em>Zero re-entry</em>.
+            </p>
+            <dl class="feature__spec">
+              <div><dt>Forms</dt><dd>NC Scrap Tire Cert · PA Act 90 · destination permit capture</dd></div>
+              <div><dt>Trail</dt><dd>Tire ID · in · out · hauler · facility · 3-yr retention</dd></div>
+              <div><dt>Built for</dt><dd>NC DEQ + PA DEP audits (more states landing)</dd></div>
+            </dl>
+          </div>
+          <aside class="feature__aside">
+            <span class="feature__aside-label">Scrap queue · today</span>
+            <div class="aside-row"><span class="aside-row__k">Pending</span><span class="aside-row__v">14 tires</span></div>
+            <div class="aside-row"><span class="aside-row__k">Hauler</span><span class="aside-row__v">Thu pickup</span></div>
+            <div class="aside-row"><span class="aside-row__k">Manifest</span><span class="aside-row__v is-accent">1-click ready</span></div>
+            <div class="aside-row"><span class="aside-row__k">Trail</span><span class="aside-row__v">All 14 logged</span></div>
+          </aside>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       § 04 Social proof — honest placeholder
+  ============================================================ -->
+  <section class="section" id="proof" aria-labelledby="proof-h">
+    <div class="wrap">
+      <header class="sec-head reveal">
+        <div class="sec-head__main">
+          <div class="kicker">§ 04 · From the bays</div>
+          <h2 id="proof-h" class="sec-title">Beta shops are <span class="accent">recording</span> now.</h2>
+          <p class="sec-deck">
+            Honest about it: RubberIQ is in early-access with a small group of
+            independent used-tire shops. Real testimonials and logos land here as
+            they ship.
+          </p>
+        </div>
+        <div class="sec-head__poster" aria-hidden="true">
+          <span class="section-mark">Beta · slots open</span>
+          06<span class="glyph-accent">.</span>
+        </div>
+      </header>
+
+      <div class="proof">
+        <figure class="quote reveal">
+          <span class="quote__mark">Placeholder · landing soon</span>
+          <blockquote class="quote__body">
+            "Real shop-owner pull-quote slot — one sentence about the specific
+            moment RubberIQ replaced a paper-based step in the day."
+          </blockquote>
+          <figcaption class="quote__attrib">
+            <span aria-hidden="true">—</span>
+            <span><b>Beta shop owner</b>Attribution lands with the recorded interview.</span>
+          </figcaption>
+        </figure>
+
+        <div class="logos reveal" aria-labelledby="logos-h">
+          <p class="proof__note">Real logos · live after beta</p>
+          <p id="logos-h" class="logos__label">Shops piloting RubberIQ</p>
+          <div class="logos__grid" role="list">
+            <div class="logo-slot" role="listitem"><b>Beta · 01</b>shop logo slot</div>
+            <div class="logo-slot" role="listitem"><b>Beta · 02</b>shop logo slot</div>
+            <div class="logo-slot" role="listitem"><b>Beta · 03</b>shop logo slot</div>
+            <div class="logo-slot" role="listitem"><b>Beta · 04</b>shop logo slot</div>
+            <div class="logo-slot" role="listitem"><b>Beta · 05</b>shop logo slot</div>
+            <div class="logo-slot" role="listitem"><b>Beta · 06</b>shop logo slot</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       § 05 Pricing teaser
+  ============================================================ -->
+  <section class="section" id="pricing" aria-labelledby="pricing-h">
+    <div class="wrap">
+      <header class="sec-head reveal">
+        <div class="sec-head__main">
+          <div class="kicker">§ 05 · Pricing</div>
+          <h2 id="pricing-h" class="sec-title">One <span class="accent">flat</span> rate per shop. No per-tire fees.</h2>
+        </div>
+        <div class="sec-head__poster" aria-hidden="true">
+          <span class="section-mark">From · per shop / month</span>
+          <span class="glyph-accent">$</span>149
+        </div>
+      </header>
+
+      <div class="price-card reveal">
+        <div>
+          <div class="price-card__num">
+            <div class="price-card__amt"><span class="dollar">$</span>149</div>
+            <div class="price-card__cad">/ shop / month · single bay</div>
+          </div>
+          <p class="price-card__body">
+            Multi-bay and chain pricing scale down — the more shops, the lower
+            the per-shop rate. We tune the plan on the demo, and you keep your
+            data either way.
+          </p>
+          <p class="price-card__fine">30-day trial · no card · cancel from settings</p>
+        </div>
+
+        <div class="price-card__cta">
+          <a class="btn btn--primary btn--lg" href="#demo">Book a demo</a>
+          <a class="btn btn--ghost btn--lg" href="#trial">Start free trial</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       § 06 Final CTA
+  ============================================================ -->
+  <section class="final" id="demo" aria-labelledby="demo-h">
+    <div class="wrap">
+      <div class="final__inner">
+        <div class="reveal">
+          <div class="final__kicker">§ 06 · The next step</div>
+          <h2 id="demo-h" class="final__title">See it on your floor.</h2>
+          <p class="final__body">
+            Fifteen minutes on a screen-share. Bring last week's busiest day and
+            we'll walk it through RubberIQ in real time — your tires, your
+            wholesalers, your scrap log.
+          </p>
+        </div>
+        <div class="final__cta reveal">
+          <a class="btn btn--primary btn--lg" href="mailto:demo@rubberiq.com?subject=Book%20a%20demo">Book a demo</a>
+          <a class="btn btn--ghost btn--lg" href="#trial">Start free trial</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================================================
+     Footer
+============================================================ -->
+<footer class="site-footer" role="contentinfo">
+  <div class="wrap">
+    <p class="site-footer__statement">
+      Built for the shops that <em>turn rubber</em> by the rack.
+    </p>
+
+    <div class="site-footer__meta">
+      <div>
+        <b>RubberIQ — by Guru Boxz Technologies LLC</b>
+        AI intake, deterministic grading, and disposal compliance for independent used-tire shops.
+      </div>
+      <div>
+        <b>Talk to us</b>
+        <a href="mailto:hello@rubberiq.com">hello@rubberiq.com</a><br />
+        <a href="mailto:demo@rubberiq.com">demo@rubberiq.com</a>
+      </div>
+      <div class="site-footer__rev">
+        © 2026 Guru Boxz Technologies LLC · v0.1 · used-tire ops
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    if (!('IntersectionObserver' in window)) {
+      document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('is-in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+    document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+  })();
+</script>
+
+</body>
+</html>

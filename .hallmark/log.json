@@ -1,0 +1,36 @@
+[
+  {
+    "date": "2026-05-26",
+    "macrostructure": "Manifesto",
+    "theme": "custom",
+    "theme_axes": "dark / bricolage-grotesque-700 / chromatic-green",
+    "vibe": "industrial intelligence · sodium-vapor diagnostic · restrained",
+    "enrichment": "E2 hand-built SVG (instrument-cluster tire schematic, ink stroke, neon callouts only) + calm brand band + grade-stamp + price-stamp reveal",
+    "brief": "RubberIQ marketing landing v3 — audit-applied restraint pass: dropped accent chroma, killed glow, square corners, underline emphasis, no marquee neon, no radial blob"
+  },
+  {
+    "date": "2026-05-26",
+    "macrostructure": "Manifesto",
+    "theme": "custom",
+    "theme_axes": "dark / bricolage-display-bold / chromatic-green-high-chroma",
+    "vibe": "high-octane shop-floor confidence · neon diagnostic · brutalist precision",
+    "enrichment": "E2 hand-built SVG (oversized neon tire schematic) + marquee scroll band",
+    "brief": "RubberIQ marketing landing v2 — used-tire only, neon-green wow-factor redesign (audited, replaced by v3)"
+  },
+  {
+    "date": "2026-05-26",
+    "macrostructure": "Field Guide",
+    "theme": "custom",
+    "theme_axes": "light / slab-leaning-grotesque / chromatic-green",
+    "vibe": "industrial precision · shop-floor credible · grounded AI",
+    "enrichment": "E2 hand-built SVG (tire-on-lift schematic with measured callouts)",
+    "brief": "RubberIQ marketing landing — full self-contained HTML, 8 sections"
+  },
+  {
+    "date": "2026-05-26",
+    "macrostructure": "Stat-Led",
+    "theme": "Newsprint",
+    "enrichment": "none",
+    "brief": "RubberIQ pricing section — standalone HTML component, 3 tiers"
+  }
+]

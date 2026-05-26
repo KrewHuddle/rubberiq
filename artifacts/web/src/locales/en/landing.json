@@ -1,0 +1,203 @@
+{
+  "nav": {
+    "features": "Features",
+    "howItWorks": "How it works",
+    "pricing": "Pricing"
+  },
+  "hero": {
+    "eyebrow": "AI ops · independent used-tire shops",
+    "titlePre": "One photo. One ",
+    "titleAccent": "grade",
+    "titlePost": ". One price.",
+    "subtitle": "RubberIQ is the AI intake, deterministic grading, and disposal-compliance system built for independent used-tire shops. The clipboard goes in the drawer. The shop runs on rubber, not paper.",
+    "ctaPrimary": "Book a demo",
+    "ctaSecondary": "Start free trial",
+    "trust": ["30-day trial · no card", "English & Spanish", "Installs on any phone"],
+    "payoff": {
+      "snap": {
+        "label": "Snap.",
+        "sub": "Counter person photographs the sidewall."
+      },
+      "grade": {
+        "sub": "Grade resolved · 7/32\" · 18 mo · no flags."
+      },
+      "price": {
+        "sub": "Priced against live wholesale · margin held."
+      }
+    }
+  },
+  "brandband": ["Used tires", "Graded", "Priced", "Sold", "Scrapped", "Hauled"],
+  "problem": {
+    "kicker": "Problem",
+    "titlePre": "The shop runs on ",
+    "titleAccent": "paper",
+    "titlePost": ". It shouldn't.",
+    "posterLabel": "Pain points · 3",
+    "entries": {
+      "intake": {
+        "head": "The clipboard runs intake.",
+        "body": "Three pads of paper at the counter. Two whiteboards in the bay. One customer at the door waiting for a number you can't quite give them."
+      },
+      "pricing": {
+        "head": "Pricing a used tire is a guess.",
+        "body": "Same tread, same DOT, two different counter people, two different grades. Two different prices. The margin walks out the door."
+      },
+      "disposal": {
+        "head": "Disposal is a manila folder.",
+        "body": "Scrap manifests live in a drawer. The hauler shows up unannounced. When the auditor visits you turn the shop upside down to prove a tire that left last March."
+      }
+    }
+  },
+  "how": {
+    "kicker": "How it works",
+    "titleAccent": "Three handoffs",
+    "titlePost": ". Photo to price in under a minute.",
+    "posterLabel": "Steps · 3",
+    "steps": {
+      "intake": {
+        "title": "Intake",
+        "body": "Counter person opens RubberIQ on the bay-floor phone and snaps the sidewall. That's it. Plate and customer captured in the same screen.",
+        "in": "Sidewall photo · plate · customer",
+        "by": "Counter or tech on the floor"
+      },
+      "intelligence": {
+        "title": "Intelligence",
+        "body": "Vision reads size and DOT. Deterministic grader assigns A/B/C/D/FAIL on your rules. Pricer benchmarks to live wholesale. Tire enters inventory.",
+        "in": "Photo · your grading constants",
+        "by": "RubberIQ vision + grading + pricing engine"
+      },
+      "action": {
+        "title": "Action",
+        "body": "FAIL grades drop into the scrap queue with a hauler-ready manifest. Sellable tires go on the rack with a price. Customer hears a real number before they put the wallet away.",
+        "in": "Order · waiver · scrap entry · price",
+        "by": "Customer at the counter"
+      }
+    }
+  },
+  "features": {
+    "kicker": "What it does",
+    "titlePre": "Four ",
+    "titleAccent": "moves",
+    "titlePost": " we make for you.",
+    "deck": "Not another POS. RubberIQ sits next to what you already run and replaces the parts of the day you hate. Concrete, not buzzwordy.",
+    "posterLabel": "Features · F-01 → F-04",
+    "items": {
+      "intake": {
+        "tag": "AI Service Intake",
+        "titlePre": "A used tire becomes an order in ",
+        "titleAccent": "9 seconds",
+        "titlePost": ".",
+        "body": "Counter person snaps the sidewall. Vision pulls size + DOT week/year. Grading engine reads tread + age + flags. Pricer benchmarks against live wholesale. English or Spanish, sun or shop-fluorescent, smudged stamp or fresh.",
+        "spec": {
+          "Reads": "Size · load + speed · DOT cohort · sidewall flags",
+          "Grades": "A · B · C · D · FAIL — your constants, your trade secret",
+          "Works on": "Any phone with a camera, online or offline"
+        },
+        "asideLabel": "Sample read",
+        "aside": [
+          { "k": "Size", "v": "225 / 65 R17" },
+          { "k": "DOT", "v": "2423 · 18 mo" },
+          { "k": "Tread", "v": "7 / 32\"" },
+          { "k": "Grade", "v": "B", "accent": true },
+          { "k": "Price", "v": "$65" }
+        ]
+      },
+      "wholesaler": {
+        "tag": "Hybrid Inventory + Wholesaler",
+        "titlePre": "Your rack ",
+        "titleAccent": "plus",
+        "titlePost": " the wholesaler catalog. One search.",
+        "body": "The customer needs four 225/65R17. RubberIQ searches your own used stock AND your wholesaler accounts (Tirewire, TireConnect) in one shot, ranks by landed cost, lets you sell off the rack or order in one click — and locks the price the customer just heard.",
+        "spec": {
+          "Hits": "Your used rack · Tirewire · TireConnect · direct lines",
+          "Ranks by": "Landed cost · in-stock · ship time",
+          "Locks": "Quoted price on the order, not the screen"
+        },
+        "asideLabel": "Cost compare — sample",
+        "aside": [
+          { "k": "On rack", "v": "$65 · grade B", "accent": true },
+          { "k": "Tirewire", "v": "$48 · 2 day" },
+          { "k": "TireConnect", "v": "$52 · 1 day" },
+          { "k": "Direct", "v": "$45 · in stock" }
+        ]
+      },
+      "history": {
+        "tag": "Customer + Vehicle History",
+        "titlePre": "Plate in. ",
+        "titleAccent": "Tire history out",
+        "titlePost": ".",
+        "body": "Type a plate, scan a VIN, or pick a name and the customer's whole tire history surfaces — sizes they run, grade mix on the car now, DOT cohort, last visit, what you sold them and when. No paper jacket, no Excel sheet on the back-office PC.",
+        "spec": {
+          "Indexed by": "Plate · phone · VIN · last name · YMM",
+          "Tracks": "Tires on car · grade mix · DOT cohort · sale + scrap log",
+          "Alerts": "Low stock · DOT age check due · scrap pickup window"
+        },
+        "asideLabel": "Customer record",
+        "aside": [
+          { "k": "Plate", "v": "ABC-1234" },
+          { "k": "Last visit", "v": "11 Apr · rotate" },
+          { "k": "Tires on", "v": "4 × 225/65R17 · B" },
+          { "k": "Next", "v": "DOT check · 14 days", "accent": true }
+        ]
+      },
+      "disposal": {
+        "tag": "Disposal + Compliance",
+        "titlePre": "Pass the audit ",
+        "titleAccent": "without",
+        "titlePost": " opening a drawer.",
+        "body": "FAIL grades auto-route to the scrap queue. RubberIQ builds the NC Scrap-Tire Cert (Parts I + II) and the PA Act 90 manifest the hauler and state need. Three-year retention on every tire, every date, every signature. Zero re-entry.",
+        "spec": {
+          "Forms": "NC Scrap Tire Cert · PA Act 90 · destination permit capture",
+          "Trail": "Tire ID · in · out · hauler · facility · 3-yr retention",
+          "Built for": "NC DEQ + PA DEP audits (more states landing)"
+        },
+        "asideLabel": "Scrap queue · today",
+        "aside": [
+          { "k": "Pending", "v": "14 tires" },
+          { "k": "Hauler", "v": "Thu pickup" },
+          { "k": "Manifest", "v": "1-click ready", "accent": true },
+          { "k": "Trail", "v": "All 14 logged" }
+        ]
+      }
+    }
+  },
+  "proof": {
+    "kicker": "From the bays",
+    "titlePre": "Beta shops are ",
+    "titleAccent": "recording",
+    "titlePost": " now.",
+    "deck": "Honest about it: RubberIQ is in early-access with a small group of independent used-tire shops. Real testimonials and logos land here as they ship.",
+    "posterLabel": "Beta · slots open",
+    "placeholder": "Placeholder · landing soon",
+    "quoteBody": "Real shop-owner pull-quote slot — one sentence about the specific moment RubberIQ replaced a paper-based step in the day.",
+    "attribName": "Beta shop owner",
+    "attribDetail": "Attribution lands with the recorded interview.",
+    "logosNote": "Real logos · live after beta",
+    "logosLabel": "Shops piloting RubberIQ",
+    "slot": "shop logo slot"
+  },
+  "pricing": {
+    "kicker": "Pricing",
+    "titlePre": "One ",
+    "titleAccent": "flat",
+    "titlePost": " rate per shop. No per-tire fees.",
+    "posterLabel": "From · per shop / month",
+    "cadence": "/ shop / month · single bay",
+    "body": "Multi-bay and chain pricing scale down — the more shops, the lower the per-shop rate. We tune the plan on the demo, and you keep your data either way.",
+    "fine": "30-day trial · no card · cancel from settings"
+  },
+  "cta": {
+    "kicker": "§ 06 · The next step",
+    "title": "See it on your floor.",
+    "body": "Fifteen minutes on a screen-share. Bring last week's busiest day and we'll walk it through RubberIQ in real time — your tires, your wholesalers, your scrap log."
+  },
+  "footer": {
+    "statementPre": "Built for the shops that ",
+    "statementAccent": "turn rubber",
+    "statementPost": " by the rack.",
+    "brand": "RubberIQ — by Guru Boxz Technologies LLC",
+    "brandSub": "AI intake, deterministic grading, and disposal compliance for independent used-tire shops.",
+    "talk": "Talk to us",
+    "copyright": "© 2026 Guru Boxz Technologies LLC · v0.1 · used-tire ops"
+  }
+}

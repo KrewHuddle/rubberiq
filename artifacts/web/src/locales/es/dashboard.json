@@ -1,0 +1,33 @@
+{
+  "headline": "Hoy",
+  "kpis": {
+    "inStock": "En inventario",
+    "soldToday": "Vendidas hoy",
+    "revenueToday": "Ingresos hoy",
+    "scrapOnHand": "Desecho actual",
+    "intakeReview": "Pendientes de revisión"
+  },
+  "tabs": {
+    "inventory": "Inventario",
+    "sales": "Ventas",
+    "scrap": "Desecho"
+  },
+  "error": {
+    "statsLoad": "No se pudieron cargar las estadísticas — reintentando…"
+  },
+  "scrap": {
+    "title": "Cola de desecho",
+    "onHand": "En mano",
+    "empty": "Sin desecho en mano.",
+    "hauls": "Recolecciones",
+    "noHauls": "Sin recolecciones programadas."
+  },
+  "saleDoc": {
+    "loading": "Cargando documento…",
+    "sign": "Firma del cliente",
+    "signed": "Firmado",
+    "ageDisclosure": "Aviso de antigüedad requerido",
+    "ageDisclosureBody": "El cliente debe reconocer la antigüedad de la llanta antes de firmar."
+  },
+  "emptyInventory": "Aún no hay llantas. Captura una para empezar."
+}

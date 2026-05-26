@@ -1,0 +1,33 @@
+{
+  "headline": "Today",
+  "kpis": {
+    "inStock": "In stock",
+    "soldToday": "Sold today",
+    "revenueToday": "Revenue today",
+    "scrapOnHand": "Scrap on hand",
+    "intakeReview": "Awaiting review"
+  },
+  "tabs": {
+    "inventory": "Inventory",
+    "sales": "Sales",
+    "scrap": "Scrap"
+  },
+  "error": {
+    "statsLoad": "Could not load stats — retrying…"
+  },
+  "scrap": {
+    "title": "Scrap queue",
+    "onHand": "On hand",
+    "empty": "No scrap on hand.",
+    "hauls": "Hauls",
+    "noHauls": "No hauls scheduled."
+  },
+  "saleDoc": {
+    "loading": "Loading document…",
+    "sign": "Customer signature",
+    "signed": "Signed",
+    "ageDisclosure": "Age disclosure required",
+    "ageDisclosureBody": "Customer must acknowledge tire age before signing."
+  },
+  "emptyInventory": "No tires yet. Snap one to get started."
+}

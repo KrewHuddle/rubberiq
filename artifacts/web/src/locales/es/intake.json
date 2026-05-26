@@ -1,0 +1,34 @@
+{
+  "title": "Captura una llanta.",
+  "subtitle": "Foto → clasificación → precio. Al instante.",
+  "actions": {
+    "capture": "Capturar",
+    "retake": "Repetir",
+    "useFile": "Usar archivo",
+    "confirm": "Confirmar y agregar al inventario",
+    "review": "Enviar a revisión",
+    "scrap": "Marcar como desecho"
+  },
+  "fields": {
+    "size": "Medida",
+    "dot": "DOT",
+    "age": "Antigüedad",
+    "tread": "Banda",
+    "brand": "Marca",
+    "model": "Modelo"
+  },
+  "units": {
+    "ageMonths": "m",
+    "tread32": "/32",
+    "yearWeek": "S{{week}}/{{year}}"
+  },
+  "grade": {
+    "A": "Excelente",
+    "B": "Bueno",
+    "C": "Regular",
+    "D": "Marginal",
+    "FAIL": "Falla — no se puede vender"
+  },
+  "lowConfidence": "Confianza baja. Enviado a la cola de revisión.",
+  "failBlock": "Esta llanta no pasó la clasificación y fue enviada al desecho. No puede venderse."
+}

@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "composite": true,
+    "declaration": true,
+    "types": ["node", "express"]
+  },
+  "include": ["src/**/*"],
+  "references": [
+    { "path": "../../lib/db" },
+    { "path": "../../lib/anthropic" }
+  ]
+}

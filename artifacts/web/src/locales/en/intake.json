@@ -1,0 +1,34 @@
+{
+  "title": "Snap a tire.",
+  "subtitle": "Photo → grade → price. Instantly.",
+  "actions": {
+    "capture": "Capture",
+    "retake": "Retake",
+    "useFile": "Use file",
+    "confirm": "Confirm & add to stock",
+    "review": "Send to review",
+    "scrap": "Mark as scrap"
+  },
+  "fields": {
+    "size": "Size",
+    "dot": "DOT",
+    "age": "Age",
+    "tread": "Tread",
+    "brand": "Brand",
+    "model": "Model"
+  },
+  "units": {
+    "ageMonths": "mo",
+    "tread32": "/32",
+    "yearWeek": "W{{week}}/{{year}}"
+  },
+  "grade": {
+    "A": "Excellent",
+    "B": "Good",
+    "C": "Fair",
+    "D": "Marginal",
+    "FAIL": "Fail — cannot be sold"
+  },
+  "lowConfidence": "Confidence is low. Sent to review queue.",
+  "failBlock": "This tire failed grading and was routed to scrap. It cannot be sold."
+}

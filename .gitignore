@@ -1,0 +1,46 @@
+node_modules
+dist
+build
+.next
+.turbo
+.cache
+.parcel-cache
+.vite
+.tsbuildinfo
+*.tsbuildinfo
+
+# env
+.env
+.env.*
+!.env.example
+
+# logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+
+# os
+.DS_Store
+Thumbs.db
+
+# editor
+.idea
+.vscode
+*.swp
+
+# tests
+coverage
+
+# misc
+*.zip
+*.tar.gz
+
+# session artifacts (screenshots, playwright traces, ad-hoc dev outputs)
+.playwright-mcp/
+/*.png
+!**/public/**/*.png
+!**/assets/**/*.png
+
+# claude local config (per-machine — don't commit user-specific tooling)
+.claude/

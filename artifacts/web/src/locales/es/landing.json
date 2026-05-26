@@ -1,0 +1,203 @@
+{
+  "nav": {
+    "features": "Funciones",
+    "howItWorks": "Cómo funciona",
+    "pricing": "Precios"
+  },
+  "hero": {
+    "eyebrow": "Operaciones con IA · llanteras de usado independientes",
+    "titlePre": "Una foto. Una ",
+    "titleAccent": "calificación",
+    "titlePost": ". Un precio.",
+    "subtitle": "RubberIQ es el sistema de recepción con IA, calificación determinista y cumplimiento de disposición para llanteras de usado independientes. La tabla guarda en el cajón. El taller corre sobre hule, no papel.",
+    "ctaPrimary": "Agendar demo",
+    "ctaSecondary": "Prueba gratis",
+    "trust": ["30 días de prueba · sin tarjeta", "Inglés y español", "Se instala en cualquier teléfono"],
+    "payoff": {
+      "snap": {
+        "label": "Foto.",
+        "sub": "El empleado fotografía el flanco."
+      },
+      "grade": {
+        "sub": "Calificación resuelta · 7/32\" · 18 meses · sin banderas."
+      },
+      "price": {
+        "sub": "Precio contra mayorista en vivo · margen sostenido."
+      }
+    }
+  },
+  "brandband": ["Llantas usadas", "Calificadas", "Cotizadas", "Vendidas", "Desechadas", "Recolectadas"],
+  "problem": {
+    "kicker": "Problema",
+    "titlePre": "El taller corre sobre ",
+    "titleAccent": "papel",
+    "titlePost": ". No debería.",
+    "posterLabel": "Puntos de dolor · 3",
+    "entries": {
+      "intake": {
+        "head": "La tabla maneja la recepción.",
+        "body": "Tres blocks de papel en el mostrador. Dos pizarrones en la zona de servicio. Un cliente en la puerta esperando un número que no puedes dar con certeza."
+      },
+      "pricing": {
+        "head": "Cotizar una llanta usada es adivinar.",
+        "body": "Mismo tread, mismo DOT, dos empleados, dos calificaciones, dos precios. El margen se va por la puerta."
+      },
+      "disposal": {
+        "head": "La disposición es un folder manila.",
+        "body": "Los manifiestos viven en un cajón. El transportista llega sin avisar. Cuando el auditor visita, pones el taller de cabeza para probar una llanta que salió en marzo."
+      }
+    }
+  },
+  "how": {
+    "kicker": "Cómo funciona",
+    "titleAccent": "Tres entregas",
+    "titlePost": ". De foto a precio en menos de un minuto.",
+    "posterLabel": "Pasos · 3",
+    "steps": {
+      "intake": {
+        "title": "Recepción",
+        "body": "El empleado abre RubberIQ en el teléfono y captura el flanco. Listo. Placa y cliente en la misma pantalla.",
+        "in": "Foto flanco · placa · cliente",
+        "by": "Mostrador o técnico en piso"
+      },
+      "intelligence": {
+        "title": "Inteligencia",
+        "body": "Visión lee medida y DOT. El motor de calificación asigna A/B/C/D/FAIL con tus reglas. El cotizador compara contra mayorista en vivo. La llanta entra al inventario.",
+        "in": "Foto · tus constantes de calificación",
+        "by": "Visión RubberIQ + motor de calificación y precio"
+      },
+      "action": {
+        "title": "Acción",
+        "body": "Las FAIL pasan a la cola de desecho con manifiesto listo. Las vendibles van al rack con precio. El cliente escucha un número real antes de guardar la cartera.",
+        "in": "Orden · exoneración · entrada de desecho · precio",
+        "by": "Cliente en mostrador"
+      }
+    }
+  },
+  "features": {
+    "kicker": "Lo que hace",
+    "titlePre": "Cuatro ",
+    "titleAccent": "movimientos",
+    "titlePost": " que hacemos por ti.",
+    "deck": "No es otro POS. RubberIQ vive junto a lo que ya usas y reemplaza las partes del día que odias. Concreto, no jerga.",
+    "posterLabel": "Funciones · F-01 → F-04",
+    "items": {
+      "intake": {
+        "tag": "Recepción con IA",
+        "titlePre": "Una llanta usada se vuelve orden en ",
+        "titleAccent": "9 segundos",
+        "titlePost": ".",
+        "body": "El empleado captura el flanco. Visión saca medida + semana/año DOT. La calificación lee tread + edad + banderas. El cotizador compara contra mayorista en vivo. Inglés o español, sol o luz fluorescente, sello desgastado o nuevo.",
+        "spec": {
+          "Lee": "Medida · índice de carga + velocidad · DOT · banderas",
+          "Califica": "A · B · C · D · FAIL — tus constantes, tu secreto comercial",
+          "Funciona en": "Cualquier teléfono con cámara, en línea o sin conexión"
+        },
+        "asideLabel": "Lectura muestra",
+        "aside": [
+          { "k": "Medida", "v": "225 / 65 R17" },
+          { "k": "DOT", "v": "2423 · 18 meses" },
+          { "k": "Tread", "v": "7 / 32\"" },
+          { "k": "Grado", "v": "B", "accent": true },
+          { "k": "Precio", "v": "$65" }
+        ]
+      },
+      "wholesaler": {
+        "tag": "Inventario híbrido + mayorista",
+        "titlePre": "Tu rack ",
+        "titleAccent": "más",
+        "titlePost": " el catálogo mayorista. Una búsqueda.",
+        "body": "El cliente necesita cuatro 225/65R17. RubberIQ busca en tu stock usado Y en tus cuentas mayoristas (Tirewire, TireConnect) de una vez, ordena por costo total, te deja vender del rack o pedir con un clic — y fija el precio que el cliente acaba de oír.",
+        "spec": {
+          "Busca": "Tu rack · Tirewire · TireConnect · líneas directas",
+          "Ordena por": "Costo total · existencias · tiempo de envío",
+          "Fija": "Precio cotizado en la orden, no en pantalla"
+        },
+        "asideLabel": "Comparativo — muestra",
+        "aside": [
+          { "k": "En rack", "v": "$65 · grado B", "accent": true },
+          { "k": "Tirewire", "v": "$48 · 2 días" },
+          { "k": "TireConnect", "v": "$52 · 1 día" },
+          { "k": "Directo", "v": "$45 · existencia" }
+        ]
+      },
+      "history": {
+        "tag": "Historial cliente + vehículo",
+        "titlePre": "Placa entra. ",
+        "titleAccent": "Historial de llantas sale",
+        "titlePost": ".",
+        "body": "Tecleas una placa, escaneas un VIN, eliges un nombre y aparece todo el historial — medidas, mezcla de grados en el auto, DOT, última visita, qué le vendiste y cuándo. Sin folder de papel, sin Excel en la PC de oficina.",
+        "spec": {
+          "Indexado por": "Placa · teléfono · VIN · apellido · YMM",
+          "Rastrea": "Llantas en auto · mezcla de grado · DOT · registro de venta y desecho",
+          "Alertas": "Bajo inventario · revisión DOT pendiente · ventana de recolección"
+        },
+        "asideLabel": "Registro de cliente",
+        "aside": [
+          { "k": "Placa", "v": "ABC-1234" },
+          { "k": "Última visita", "v": "11 abr · rotación" },
+          { "k": "Llantas en auto", "v": "4 × 225/65R17 · B" },
+          { "k": "Próximo", "v": "Revisión DOT · 14 días", "accent": true }
+        ]
+      },
+      "disposal": {
+        "tag": "Disposición + cumplimiento",
+        "titlePre": "Pasa la auditoría ",
+        "titleAccent": "sin",
+        "titlePost": " abrir un cajón.",
+        "body": "Los FAIL pasan automático a la cola de desecho. RubberIQ arma el NC Scrap-Tire Cert (Partes I + II) y el manifiesto PA Act 90 que necesitan el transportista y el estado. Retención de 3 años por llanta, fecha y firma. Cero re-captura.",
+        "spec": {
+          "Formatos": "NC Scrap Tire Cert · PA Act 90 · captura de permiso de destino",
+          "Trazabilidad": "ID llanta · entrada · salida · transportista · facilidad · 3 años",
+          "Hecho para": "Auditorías NC DEQ + PA DEP (más estados próximos)"
+        },
+        "asideLabel": "Cola de desecho · hoy",
+        "aside": [
+          { "k": "Pendientes", "v": "14 llantas" },
+          { "k": "Transportista", "v": "Jue recolección" },
+          { "k": "Manifiesto", "v": "Listo · 1 clic", "accent": true },
+          { "k": "Trazabilidad", "v": "14 de 14 registradas" }
+        ]
+      }
+    }
+  },
+  "proof": {
+    "kicker": "Desde el piso",
+    "titlePre": "Talleres beta están ",
+    "titleAccent": "grabando",
+    "titlePost": " ahora.",
+    "deck": "Honestos: RubberIQ está en acceso anticipado con un grupo pequeño de llanteras de usado. Testimonios y logos reales aterrizan aquí conforme se publican.",
+    "posterLabel": "Beta · plazas abiertas",
+    "placeholder": "Marcador · próximamente",
+    "quoteBody": "Espacio de cita real del dueño — una oración sobre el momento específico en que RubberIQ reemplazó un paso de papel en su día.",
+    "attribName": "Dueño de taller beta",
+    "attribDetail": "Atribución aterriza con la entrevista grabada.",
+    "logosNote": "Logos reales · en vivo después de beta",
+    "logosLabel": "Talleres en piloto con RubberIQ",
+    "slot": "espacio para logo"
+  },
+  "pricing": {
+    "kicker": "Precios",
+    "titlePre": "Una tarifa ",
+    "titleAccent": "fija",
+    "titlePost": " por taller. Sin cobros por llanta.",
+    "posterLabel": "Desde · por taller / mes",
+    "cadence": "/ taller / mes · sucursal única",
+    "body": "Multi-sucursal y cadena bajan — entre más talleres, menor la tarifa por taller. Afinamos el plan en la demo y tus datos son tuyos en cualquier caso.",
+    "fine": "30 días de prueba · sin tarjeta · cancela desde configuración"
+  },
+  "cta": {
+    "kicker": "§ 06 · El siguiente paso",
+    "title": "Verlo en tu piso.",
+    "body": "Quince minutos en pantalla compartida. Trae el día más cargado de la semana pasada y lo recorremos en RubberIQ en tiempo real — tus llantas, tus mayoristas, tu registro de desecho."
+  },
+  "footer": {
+    "statementPre": "Hecho para los talleres que ",
+    "statementAccent": "mueven hule",
+    "statementPost": " por el rack.",
+    "brand": "RubberIQ — por Guru Boxz Technologies LLC",
+    "brandSub": "Recepción con IA, calificación determinista y cumplimiento de disposición para llanteras de usado independientes.",
+    "talk": "Háblanos",
+    "copyright": "© 2026 Guru Boxz Technologies LLC · v0.1 · ops llanta usada"
+  }
+}
