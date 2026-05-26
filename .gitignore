@@ -44,3 +44,7 @@ coverage
 
 # claude local config (per-machine — don't commit user-specific tooling)
 .claude/
+
+# macOS Finder duplicates (e.g. "App 2.tsx" — Spotlight copy artifacts)
+* 2.*
+*\ 2.*
