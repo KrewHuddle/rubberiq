@@ -77,6 +77,12 @@ services:
         scope: RUN_TIME
         type: SECRET
         value: SET_VIA_DO_CONSOLE
+      # Trade-secret grading bands (see docs/grading-config.md for schema).
+      # Engine throws at boot in NODE_ENV=production if this is unset.
+      - key: GRADING_CONFIG_JSON
+        scope: RUN_TIME
+        type: SECRET
+        value: SET_VIA_DO_CONSOLE
 
 static_sites:
   - name: web
