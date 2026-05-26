@@ -1,0 +1,49 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: typecheck · test · build
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: install
+        run: pnpm install --frozen-lockfile
+
+      - name: typecheck (all workspaces)
+        run: pnpm typecheck
+
+      - name: test (api-server)
+        run: pnpm --filter @rubberiq/api-server test
+
+      - name: build (api-server)
+        run: pnpm --filter @rubberiq/api-server build
+
+      - name: build (web)
+        run: pnpm --filter @rubberiq/web build
+
+      - name: build (db package · emits dist for workspace consumers)
+        run: pnpm --filter @rubberiq/db build

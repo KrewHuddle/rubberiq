@@ -1,0 +1,114 @@
+# DigitalOcean App Platform — RubberIQ
+#
+# Apply with:   doctl apps create --spec .do/app.yaml
+# Update with:  doctl apps update <APP_ID> --spec .do/app.yaml
+#
+# Secrets you must set in DO console AFTER first create:
+#   JWT_SECRET            — 32+ random bytes (openssl rand -hex 32)
+#   ANTHROPIC_API_KEY     — sk-ant-... (Phase 1 vision intake)
+#   SENTRY_DSN            — optional (Sentry org guru-boxz)
+#   STRIPE_SECRET_KEY     — optional until Module 10 ships
+#
+# DATABASE_URL is wired automatically via the database ref below.
+# WEB_ORIGIN is wired to the static site's public URL.
+
+name: rubberiq
+region: nyc
+
+databases:
+  # Reference the existing guru-boxz-db cluster + rubberiq DB.
+  # cluster_name + db_name must match the DO console exactly.
+  - name: rubberiq-db
+    engine: PG
+    production: true
+    cluster_name: guru-boxz-db
+    db_name: rubberiq
+    db_user: doadmin
+
+services:
+  - name: api
+    github:
+      repo: KrewHuddle/rubberiq
+      branch: main
+      deploy_on_push: true
+    source_dir: /
+    build_command: |
+      corepack enable
+      pnpm install --frozen-lockfile
+      pnpm --filter @rubberiq/db build
+      pnpm --filter @rubberiq/api-server build
+    run_command: pnpm --filter @rubberiq/api-server start
+    environment_slug: node-js
+    instance_size_slug: basic-xxs
+    instance_count: 1
+    http_port: 3000
+    health_check:
+      http_path: /healthz
+      initial_delay_seconds: 30
+      period_seconds: 30
+      timeout_seconds: 5
+      failure_threshold: 3
+    envs:
+      - key: NODE_ENV
+        scope: RUN_AND_BUILD_TIME
+        value: production
+      - key: PORT
+        scope: RUN_TIME
+        value: '3000'
+      - key: DATABASE_URL
+        scope: RUN_AND_BUILD_TIME
+        value: ${rubberiq-db.DATABASE_URL}
+      - key: WEB_ORIGIN
+        scope: RUN_TIME
+        value: ${web.PUBLIC_URL}
+      - key: JWT_SECRET
+        scope: RUN_TIME
+        type: SECRET
+        value: SET_VIA_DO_CONSOLE
+      - key: ANTHROPIC_API_KEY
+        scope: RUN_TIME
+        type: SECRET
+        value: SET_VIA_DO_CONSOLE
+      - key: SENTRY_DSN
+        scope: RUN_TIME
+        type: SECRET
+        value: SET_VIA_DO_CONSOLE
+      - key: STRIPE_SECRET_KEY
+        scope: RUN_TIME
+        type: SECRET
+        value: SET_VIA_DO_CONSOLE
+
+static_sites:
+  - name: web
+    github:
+      repo: KrewHuddle/rubberiq
+      branch: main
+      deploy_on_push: true
+    source_dir: /
+    build_command: |
+      corepack enable
+      pnpm install --frozen-lockfile
+      pnpm --filter @rubberiq/web build
+    output_dir: artifacts/web/dist
+    catchall_document: index.html
+    routes:
+      - path: /
+    envs:
+      - key: NODE_ENV
+        scope: BUILD_TIME
+        value: production
+
+ingress:
+  rules:
+    # API mounted at /api/* — must come before the catch-all to /.
+    - match:
+        path:
+          prefix: /api
+      component:
+        name: api
+    # All other paths → the SPA.
+    - match:
+        path:
+          prefix: /
+      component:
+        name: web
