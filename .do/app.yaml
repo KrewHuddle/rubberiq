@@ -15,6 +15,14 @@
 name: rubberiq
 region: nyc
 
+domains:
+  - domain: getrubberiq.com
+    type: PRIMARY
+    zone: getrubberiq.com
+  - domain: www.getrubberiq.com
+    type: ALIAS
+    zone: getrubberiq.com
+
 databases:
   # Reference the existing guru-boxz-db cluster + rubberiq DB.
   # cluster_name + db_name must match the DO console exactly.
