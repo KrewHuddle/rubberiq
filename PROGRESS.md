@@ -22,7 +22,7 @@ Vision parse (Anthropic Opus) → deterministic parsers (size, DOT) → determin
 - **Sale-doc generator (Module 11)**: `services/saleDocs/{generate,render}.ts` + routes (`POST /sale-docs`, `GET /:id/html`, `POST /:id/sign`) + `SaleDocPage` with canvas signature pad + age-disclosure auto-flag at >60mo.
 - **Disposal queue (Module 12 shop-side)**: `services/disposal/{queue,manifest}.ts` + routes + `ScrapQueuePage` with batch-select, hauler/facility/scheduled-date inputs, NC + PA manifest renderers.
 - **Sales-agent + commissions (Module 14)**: `services/sales/{agents,commission}.ts` + `routes/admin.ts` (187 lines · super-admin-gated). Create agent, assign shop (emits signup commission_events row), commission plan CRUD, list commissions/health/alerts.
-- **Super-admin dashboard**: `/api/admin/stats` (shops live, MRR, tires logged, scrap hauled, agents) wired to `SuperAdminPage`.
+- **Super-admin dashboard**: `/api/admin/stats` wired to OverviewPage; tabbed shell at `/admin/{,shops,agents,plans,commissions,health,alerts}` — agents create+assign, commission-plan create, commission ledger w/ agent filter, health + alerts tables. New `admin` i18n namespace (en + es).
 - **React landing**: at `/` for unauthed, Heat-Amber Manifesto layout, used-tire-only copy.
 - **Grading constants moved to env**: `GRADING_CONFIG_JSON` (engine throws at boot in NODE_ENV=production if missing).
 
@@ -52,7 +52,6 @@ Vision parse (Anthropic Opus) → deterministic parsers (size, DOT) → determin
 
 ## Next Claude-actionable (after operator steps)
 
-- Module 14 frontend: agents tab + commission plans tab + commissions ledger.
 - Module 16 health-score job (cron-style aggregate on `health_signals`).
 - Module 17 alerts auto-emission rules.
 - Module 18 onboarding step machine (`/api/onboarding/*`).

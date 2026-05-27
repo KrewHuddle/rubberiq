@@ -1,74 +1,78 @@
 /**
- * Super-admin dashboard — platform KPIs + jumps to admin surfaces.
- * Pulls /api/admin/stats. 30s refetch.
+ * Super-admin shell — tabbed nav for platform surfaces.
+ * Outer route is `/admin/*`; this component owns the inner Routes.
  */
+import { NavLink, Route, Routes } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useQuery } from '@tanstack/react-query';
-import { StatTile } from '../design/index.js';
-import { api } from '../lib/api.js';
-
-type AdminStats = {
-  shopsLive: number;
-  mrrCents: number;
-  tiresLogged: number;
-  scrapHauled: number;
-  agentsActive: number;
-};
-
-function fmtUsd(cents: number, lang: string): string {
-  return new Intl.NumberFormat(lang === 'es' ? 'es-US' : 'en-US', {
-    style: 'currency',
-    currency: 'USD',
-    maximumFractionDigits: 0,
-  }).format(cents / 100);
-}
+import { cn } from '../design/index.js';
+import { OverviewPage } from './admin/OverviewPage.js';
+import { ShopsPage } from './admin/ShopsPage.js';
+import { AgentsPage } from './admin/AgentsPage.js';
+import { CommissionPlansPage } from './admin/CommissionPlansPage.js';
+import { CommissionsPage } from './admin/CommissionsPage.js';
+import { HealthPage } from './admin/HealthPage.js';
+import { AlertsPage } from './admin/AlertsPage.js';
 
 export function SuperAdminPage() {
-  const { i18n } = useTranslation();
-  const stats = useQuery<AdminStats>({
-    queryKey: ['admin', 'stats'],
-    queryFn: () => api<AdminStats>('/api/admin/stats'),
-    refetchInterval: 30_000,
-  });
-
-  const fmtN = (n: number | undefined) =>
-    stats.isLoading ? '—' : new Intl.NumberFormat(i18n.language).format(n ?? 0);
-  const fmtMoney = (cents: number | undefined) =>
-    stats.isLoading ? '—' : fmtUsd(cents ?? 0, i18n.language);
+  const { t } = useTranslation('admin');
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       <header className="flex items-baseline justify-between gap-4 flex-wrap">
         <h1 className="font-[family-name:var(--rb-font-display)] text-4xl font-semibold tracking-tight">
-          Platform
+          {t('overview.title')}
         </h1>
-        <div className="text-sm text-[var(--rb-fg-muted)] rb-mono">super-admin · live</div>
+        <div className="text-sm text-[var(--rb-fg-muted)] rb-mono">{t('overview.subtitle')}</div>
       </header>
 
-      {stats.isError && (
-        <div className="rounded-[var(--rb-radius-md)] border border-[var(--rb-alert-red)] bg-[color-mix(in_oklch,var(--rb-alert-red)_10%,transparent)] px-4 py-3 text-sm text-[var(--rb-alert-red)]">
-          Could not load stats — retrying…
-        </div>
-      )}
+      <nav className="flex flex-wrap gap-1 border-b border-[var(--rb-border)] -mb-px">
+        <TabLink to="/admin" end>
+          {t('tabs.overview')}
+        </TabLink>
+        <TabLink to="/admin/shops">{t('tabs.shops')}</TabLink>
+        <TabLink to="/admin/agents">{t('tabs.agents')}</TabLink>
+        <TabLink to="/admin/plans">{t('tabs.plans')}</TabLink>
+        <TabLink to="/admin/commissions">{t('tabs.commissions')}</TabLink>
+        <TabLink to="/admin/health">{t('tabs.health')}</TabLink>
+        <TabLink to="/admin/alerts">{t('tabs.alerts')}</TabLink>
+      </nav>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
-        <StatTile label="Shops live" value={fmtN(stats.data?.shopsLive)} />
-        <StatTile label="MRR" value={fmtMoney(stats.data?.mrrCents)} />
-        <StatTile label="Tires logged" value={fmtN(stats.data?.tiresLogged)} />
-        <StatTile label="Scrap hauled" value={fmtN(stats.data?.scrapHauled)} />
-        <StatTile label="Sales agents" value={fmtN(stats.data?.agentsActive)} />
-      </div>
-
-      <section>
-        <h2 className="font-[family-name:var(--rb-font-display)] text-xl font-semibold mb-3">
-          Admin surfaces
-        </h2>
-        <p className="text-sm text-[var(--rb-fg-muted)]">
-          Backend live at <code className="rb-mono text-xs">/api/admin/*</code> — shops, agents,
-          assign, commission plans, commissions, health, alerts, haulers, facilities. UI for
-          each lands as needed.
-        </p>
-      </section>
+      <Routes>
+        <Route index element={<OverviewPage />} />
+        <Route path="shops" element={<ShopsPage />} />
+        <Route path="agents" element={<AgentsPage />} />
+        <Route path="plans" element={<CommissionPlansPage />} />
+        <Route path="commissions" element={<CommissionsPage />} />
+        <Route path="health" element={<HealthPage />} />
+        <Route path="alerts" element={<AlertsPage />} />
+      </Routes>
     </div>
+  );
+}
+
+function TabLink({
+  to,
+  end,
+  children,
+}: {
+  to: string;
+  end?: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <NavLink
+      to={to}
+      end={end}
+      className={({ isActive }) =>
+        cn(
+          'px-4 py-2 text-sm rounded-t-[var(--rb-radius-sm)] border-b-2 -mb-px transition-colors',
+          isActive
+            ? 'border-[var(--rb-accent)] text-[var(--rb-fg)] font-medium'
+            : 'border-transparent text-[var(--rb-fg-muted)] hover:text-[var(--rb-fg)]',
+        )
+      }
+    >
+      {children}
+    </NavLink>
   );
 }

@@ -1,0 +1,124 @@
+{
+  "tabs": {
+    "overview": "Resumen",
+    "shops": "Talleres",
+    "agents": "Agentes",
+    "plans": "Planes de comisión",
+    "commissions": "Comisiones",
+    "health": "Salud",
+    "alerts": "Alertas"
+  },
+  "overview": {
+    "title": "Plataforma",
+    "subtitle": "super-admin · en vivo",
+    "stats": {
+      "shopsLive": "Talleres activos",
+      "mrr": "MRR",
+      "tiresLogged": "Llantas registradas",
+      "scrapHauled": "Chatarra retirada",
+      "agents": "Agentes de ventas"
+    },
+    "errLoad": "No se pudieron cargar las estadísticas — reintentando…"
+  },
+  "shops": {
+    "title": "Talleres",
+    "empty": "Aún no hay talleres.",
+    "cols": { "name": "Nombre", "state": "Estado", "subscription": "Suscripción", "created": "Creado" }
+  },
+  "agents": {
+    "title": "Agentes de ventas",
+    "newAgent": "Nuevo agente",
+    "name": "Nombre",
+    "email": "Correo",
+    "territory": "Territorio",
+    "plan": "Plan de comisión",
+    "noPlan": "(ninguno)",
+    "create": "Crear agente",
+    "createdToast": "Agente creado. Comparta la contraseña temporal ahora — no se mostrará otra vez.",
+    "tempPassword": "Contraseña temporal",
+    "copy": "Copiar",
+    "copied": "Copiada",
+    "dismiss": "Cerrar",
+    "assignTitle": "Asignar taller a agente",
+    "selectAgent": "Agente",
+    "selectShop": "Taller",
+    "assign": "Asignar",
+    "assigned": "Asignado. Comisión de alta emitida.",
+    "alreadyAttributed": "El taller ya está atribuido a otro agente.",
+    "emailTaken": "El correo pertenece a un usuario que no es agente.",
+    "empty": "Aún no hay agentes.",
+    "cols": { "name": "Nombre", "territory": "Territorio", "created": "Creado", "actions": "Acciones" }
+  },
+  "plans": {
+    "title": "Planes de comisión",
+    "newPlan": "Nuevo plan",
+    "name": "Nombre",
+    "signupKind": "Pago de alta",
+    "kindFlat": "Monto fijo $",
+    "kindPercent": "% de N meses",
+    "flatAmount": "Monto fijo (centavos)",
+    "percentBps": "Porcentaje (bps)",
+    "ofMonths": "De N meses",
+    "residualBps": "Residual (bps)",
+    "residualTerm": "Plazo residual",
+    "termLife": "vida",
+    "termMonths": "meses",
+    "upsellBps": "Tasa de upsell (bps)",
+    "attribution": "Atribución de upsell",
+    "attrUpseller": "upseller",
+    "attrSigner": "firmante",
+    "attrSplit": "dividido",
+    "create": "Crear plan",
+    "created": "Plan creado.",
+    "empty": "Aún no hay planes.",
+    "cols": {
+      "name": "Nombre",
+      "signup": "Alta",
+      "residual": "Residual",
+      "upsell": "Upsell",
+      "term": "Plazo",
+      "created": "Creado"
+    }
+  },
+  "commissions": {
+    "title": "Libro de comisiones",
+    "filterAgent": "Filtrar por agente",
+    "allAgents": "Todos los agentes",
+    "empty": "Aún no hay eventos de comisión.",
+    "cols": {
+      "period": "Periodo",
+      "agent": "Agente",
+      "shop": "Taller",
+      "type": "Tipo",
+      "basis": "Base",
+      "rate": "Tasa",
+      "amount": "Monto",
+      "paid": "Pagado"
+    }
+  },
+  "health": {
+    "title": "Salud de cuentas",
+    "empty": "Aún no hay señales de salud — ejecute el agregador semanal.",
+    "cols": {
+      "shop": "Taller",
+      "period": "Periodo",
+      "score": "Puntaje",
+      "band": "Banda",
+      "login": "Acceso",
+      "intake": "Ingreso",
+      "sales": "Ventas"
+    }
+  },
+  "alerts": {
+    "title": "Alertas",
+    "empty": "No hay alertas abiertas.",
+    "cols": {
+      "shop": "Taller",
+      "type": "Tipo",
+      "severity": "Severidad",
+      "message": "Mensaje",
+      "status": "Estado",
+      "created": "Creado"
+    }
+  }
+}

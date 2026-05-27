@@ -1,0 +1,124 @@
+{
+  "tabs": {
+    "overview": "Overview",
+    "shops": "Shops",
+    "agents": "Agents",
+    "plans": "Commission plans",
+    "commissions": "Commissions",
+    "health": "Health",
+    "alerts": "Alerts"
+  },
+  "overview": {
+    "title": "Platform",
+    "subtitle": "super-admin · live",
+    "stats": {
+      "shopsLive": "Shops live",
+      "mrr": "MRR",
+      "tiresLogged": "Tires logged",
+      "scrapHauled": "Scrap hauled",
+      "agents": "Sales agents"
+    },
+    "errLoad": "Could not load stats — retrying…"
+  },
+  "shops": {
+    "title": "Shops",
+    "empty": "No shops yet.",
+    "cols": { "name": "Name", "state": "State", "subscription": "Subscription", "created": "Created" }
+  },
+  "agents": {
+    "title": "Sales agents",
+    "newAgent": "New agent",
+    "name": "Name",
+    "email": "Email",
+    "territory": "Territory",
+    "plan": "Commission plan",
+    "noPlan": "(none)",
+    "create": "Create agent",
+    "createdToast": "Agent created. Share the temp password now — it is not shown again.",
+    "tempPassword": "Temp password",
+    "copy": "Copy",
+    "copied": "Copied",
+    "dismiss": "Dismiss",
+    "assignTitle": "Assign shop to agent",
+    "selectAgent": "Agent",
+    "selectShop": "Shop",
+    "assign": "Assign",
+    "assigned": "Assigned. Signup commission emitted.",
+    "alreadyAttributed": "Shop already attributed to another agent.",
+    "emailTaken": "Email belongs to a non-agent user.",
+    "empty": "No agents yet.",
+    "cols": { "name": "Name", "territory": "Territory", "created": "Created", "actions": "Actions" }
+  },
+  "plans": {
+    "title": "Commission plans",
+    "newPlan": "New plan",
+    "name": "Name",
+    "signupKind": "Signup payout",
+    "kindFlat": "Flat $",
+    "kindPercent": "% of N months",
+    "flatAmount": "Flat amount (cents)",
+    "percentBps": "Percent (bps)",
+    "ofMonths": "Of N months",
+    "residualBps": "Residual (bps)",
+    "residualTerm": "Residual term",
+    "termLife": "life",
+    "termMonths": "months",
+    "upsellBps": "Upsell rate (bps)",
+    "attribution": "Upsell attribution",
+    "attrUpseller": "upseller",
+    "attrSigner": "signer",
+    "attrSplit": "split",
+    "create": "Create plan",
+    "created": "Plan created.",
+    "empty": "No plans yet.",
+    "cols": {
+      "name": "Name",
+      "signup": "Signup",
+      "residual": "Residual",
+      "upsell": "Upsell",
+      "term": "Term",
+      "created": "Created"
+    }
+  },
+  "commissions": {
+    "title": "Commission ledger",
+    "filterAgent": "Filter by agent",
+    "allAgents": "All agents",
+    "empty": "No commission events yet.",
+    "cols": {
+      "period": "Period",
+      "agent": "Agent",
+      "shop": "Shop",
+      "type": "Type",
+      "basis": "Basis",
+      "rate": "Rate",
+      "amount": "Amount",
+      "paid": "Paid"
+    }
+  },
+  "health": {
+    "title": "Account health",
+    "empty": "No health signals yet — run the weekly aggregator.",
+    "cols": {
+      "shop": "Shop",
+      "period": "Period",
+      "score": "Score",
+      "band": "Band",
+      "login": "Login",
+      "intake": "Intake",
+      "sales": "Sales"
+    }
+  },
+  "alerts": {
+    "title": "Alerts",
+    "empty": "No open alerts.",
+    "cols": {
+      "shop": "Shop",
+      "type": "Type",
+      "severity": "Severity",
+      "message": "Message",
+      "status": "Status",
+      "created": "Created"
+    }
+  }
+}

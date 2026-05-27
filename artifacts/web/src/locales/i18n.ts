@@ -18,18 +18,34 @@ import enAuth from './en/auth.json';
 import enIntake from './en/intake.json';
 import enDashboard from './en/dashboard.json';
 import enLanding from './en/landing.json';
+import enAdmin from './en/admin.json';
 import esCommon from './es/common.json';
 import esAuth from './es/auth.json';
 import esIntake from './es/intake.json';
 import esDashboard from './es/dashboard.json';
 import esLanding from './es/landing.json';
+import esAdmin from './es/admin.json';
 
 export const SUPPORTED_LANGS = ['en', 'es'] as const;
 export type Lang = (typeof SUPPORTED_LANGS)[number];
 
 export const resources = {
-  en: { common: enCommon, auth: enAuth, intake: enIntake, dashboard: enDashboard, landing: enLanding },
-  es: { common: esCommon, auth: esAuth, intake: esIntake, dashboard: esDashboard, landing: esLanding },
+  en: {
+    common: enCommon,
+    auth: enAuth,
+    intake: enIntake,
+    dashboard: enDashboard,
+    landing: enLanding,
+    admin: enAdmin,
+  },
+  es: {
+    common: esCommon,
+    auth: esAuth,
+    intake: esIntake,
+    dashboard: esDashboard,
+    landing: esLanding,
+    admin: esAdmin,
+  },
 } as const;
 
 export function initI18n(initialLang: Lang = 'en'): typeof i18n {
@@ -39,7 +55,7 @@ export function initI18n(initialLang: Lang = 'en'): typeof i18n {
       lng: initialLang,
       fallbackLng: 'en',
       defaultNS: 'common',
-      ns: ['common', 'auth', 'intake', 'dashboard', 'landing'],
+      ns: ['common', 'auth', 'intake', 'dashboard', 'landing', 'admin'],
       interpolation: { escapeValue: false }, // react already escapes
       returnNull: false,
     });
