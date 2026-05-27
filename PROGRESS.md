@@ -19,6 +19,7 @@ Vision parse (Anthropic Opus) → deterministic parsers (size, DOT) → determin
 
 ### Phase 2.5 (go-to-market)
 - **Module 16 health aggregator**: `services/health/score.ts` (pure 5-part rubric, 70/40 thresholds) + `services/health/aggregate.ts` (per-shop 28d window: login recency, intake, paid invoices, last-invoice-void as payment-failed proxy; upserts `health_signals`, mirrors to `shops.health{Score,Band,UpdatedAt}`). **Module 17 alert emission** wired: band downgrade → `account_alerts` row (`churn_risk` or `dormant`, severity 2/3, routed to attributed agent). Runner: `pnpm --filter @rubberiq/api-server health:aggregate`.
+- **Module 18 onboarding state machine**: `services/onboarding/steps.ts` (linear state machine details→agreement→payment→config→invite_staff→done, zod-validated payloads) + `services/onboarding/sessions.ts` (start/get/advance/complete; completion creates shop + owner + invited staff with one-shot temp passwords, invokes `assignShopToAgent` if `agentId` present). Routes: POST `/api/onboarding/start`, GET `/api/onboarding/:id`, POST `/api/onboarding/:id/{advance,complete}`.
 
 ### Phase 2 (sellable v1)
 - **Shop dashboard**: `/api/shop/stats` (5 KPIs · 30s refetch) wired to `ShopDashboardPage`.
@@ -55,7 +56,6 @@ Vision parse (Anthropic Opus) → deterministic parsers (size, DOT) → determin
 
 ## Next Claude-actionable (after operator steps)
 
-- Module 18 onboarding step machine (`/api/onboarding/*`).
 - Disposal-service (12b/c) hauler dispatch.
 - POS / Module 10 — BLOCKED on Stripe Terminal docs verification.
 - Phase 3 wholesaler adapter (Tirewire vs TireConnect — outreach pending).
