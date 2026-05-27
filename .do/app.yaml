@@ -115,11 +115,14 @@ static_sites:
 ingress:
   rules:
     # API mounted at /api/* — must come before the catch-all to /.
+    # preserve_path_prefix=true so api-server receives /api/auth/login etc.;
+    # otherwise DO strips the matched prefix and Express routes 404.
     - match:
         path:
           prefix: /api
       component:
         name: api
+        preserve_path_prefix: true
     # All other paths → the SPA.
     - match:
         path:
