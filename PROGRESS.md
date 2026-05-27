@@ -4,10 +4,15 @@ Session handoff per CLAUDE.md. Read at start of every session. Under 100 lines.
 
 ## Live URLs
 - **App** (default): https://rubberiq-yb7xf.ondigitalocean.app
-- **Custom domain**: https://getrubberiq.com (LE cert may still be provisioning)
+- **Custom domain**: https://getrubberiq.com
 - **Repo (public)**: https://github.com/KrewHuddle/rubberiq
 - **DO App ID**: `99a9cb14-c8f9-45e0-a0b3-5f20c86fc6fa`
 - **DB**: `rubberiq` on cluster `guru-boxz-db` (`2844a349-7820-47de-85e1-706a56a6de65`), 24 tables, seeded.
+
+## Demo credentials (set 2026-05-26)
+- **Platform super-admin**: `admin@rubberiq.com` / `Glass@1995` (no shopSlug)
+- **Shop owner**: `owner@demo.rubberiq.com` / `Glass@1995` + shopSlug `demo`
+- Rotate before real go-live.
 
 ## Completed
 
@@ -15,55 +20,53 @@ Session handoff per CLAUDE.md. Read at start of every session. Under 100 lines.
 pnpm monorepo · Drizzle schema (24 tables) · Express 5 + TS strict API · auth/roles · Heat-Amber design system · en/es i18n · React 19 + Vite 7 + PWA.
 
 ### Phase 1 (the moat — AI intake)
-Vision parse (Anthropic Opus) → deterministic parsers (size, DOT) → deterministic grading rules → pricing rules → tire row + auto-scrap on FAIL (one DB tx). PWA camera. **58 vitest passing** (grading, pricing, parsers, manifest, sale-doc threshold, db SSL parser, commission compute).
-
-### Phase 2.5 (go-to-market)
-- **Module 16 health aggregator**: `services/health/score.ts` (pure 5-part rubric, 70/40 thresholds) + `services/health/aggregate.ts` (per-shop 28d window: login recency, intake, paid invoices, last-invoice-void as payment-failed proxy; upserts `health_signals`, mirrors to `shops.health{Score,Band,UpdatedAt}`). **Module 17 alert emission** wired: band downgrade → `account_alerts` row (`churn_risk` or `dormant`, severity 2/3, routed to attributed agent). Runner: `pnpm --filter @rubberiq/api-server health:aggregate`.
-- **Module 18 onboarding state machine**: `services/onboarding/steps.ts` (linear state machine details→agreement→payment→config→invite_staff→done, zod-validated payloads) + `services/onboarding/sessions.ts` (start/get/advance/complete; completion creates shop + owner + invited staff with one-shot temp passwords, invokes `assignShopToAgent` if `agentId` present). Routes: POST `/api/onboarding/start`, GET `/api/onboarding/:id`, POST `/api/onboarding/:id/{advance,complete}`.
+Vision parse (Anthropic Opus) → deterministic parsers (size, DOT) → grading rules → pricing rules → tire row + auto-scrap on FAIL (one DB tx). PWA camera. **58 vitest passing**.
 
 ### Phase 2 (sellable v1)
-- **Shop dashboard**: `/api/shop/stats` (5 KPIs · 30s refetch) wired to `ShopDashboardPage`.
-- **Sale-doc generator (Module 11)**: `services/saleDocs/{generate,render}.ts` + routes (`POST /sale-docs`, `GET /:id/html`, `POST /:id/sign`) + `SaleDocPage` with canvas signature pad + age-disclosure auto-flag at >60mo.
-- **Disposal queue (Module 12 shop-side)**: `services/disposal/{queue,manifest}.ts` + routes + `ScrapQueuePage` with batch-select, hauler/facility/scheduled-date inputs, NC + PA manifest renderers.
-- **Sales-agent + commissions (Module 14)**: `services/sales/{agents,commission}.ts` + `routes/admin.ts` (187 lines · super-admin-gated). Create agent, assign shop (emits signup commission_events row), commission plan CRUD, list commissions/health/alerts.
-- **Super-admin dashboard**: `/api/admin/stats` wired to OverviewPage; tabbed shell at `/admin/{,shops,agents,plans,commissions,health,alerts}` — agents create+assign, commission-plan create, commission ledger w/ agent filter, health + alerts tables. New `admin` i18n namespace (en + es).
-- **React landing**: at `/` for unauthed, Heat-Amber Manifesto layout, used-tire-only copy.
-- **Grading constants moved to env**: `GRADING_CONFIG_JSON` (engine throws at boot in NODE_ENV=production if missing).
+Shop dashboard (5 KPIs · 30s refetch) · Sale-doc generator (Module 11 + canvas signature + age-disclosure >60mo) · Disposal queue + NC/PA manifests (Module 12 shop-side) · Sales-agent + commissions (Module 14) · Super-admin tabbed shell (`/admin/{,shops,agents,plans,commissions,health,alerts}`) · React landing · `GRADING_CONFIG_JSON` env-driven.
 
-### Infra
-- DB provisioned on DO via `doctl databases db create`. Firewall IP added.
-- Migrations generated + applied. Seed: 1 shop `demo` (NC) + owner `owner@demo.rubberiq.com` + super-admin `admin@rubberiq.com`. **Passwords in shell history only — see scrollback or re-seed.**
-- SSL fix in code: `lib/db/src/index.ts` exports `buildPoolConfig(url)`. Lib package.json files use conditional exports (`workspace` → src for dev, `default` → dist for Node prod).
-- DO App created from `.do/app.yaml`. Active deploy: `25add0d8`. CI green (GitHub Actions). Branch protection on `main`.
-- Domain: GoDaddy `getrubberiq.com` → DO nameservers (verified via dig + WHOIS) → DO domain entry → in App `domains:` block.
+### Phase 2.5 (go-to-market)
+Module 16 health aggregator (28d, 70/40 bands) · Module 17 alert emission (band downgrade → `account_alerts`) · Module 18 electronic onboarding state machine + routes.
+
+### 2026-05-26 production fixes
+1. DO ingress strips `/api` prefix despite `preserve_path_prefix: true` (DO bug). Fixed via dual-mount Express routes `['/api/auth','/auth']` in `artifacts/api-server/src/index.ts` — commit **721f2e3**.
+2. `JWT_SECRET` corrupted by spec round-trip (encrypted EV[] re-stored as plaintext). Reset to 64-char plaintext via `doctl apps update --spec`.
+3. RubberIQ app missing from `guru-boxz-db` firewall trusted sources → login DB queries hung silently. Added `app:99a9cb14-...` rule.
+4. `usePrincipal` only listened to cross-tab `storage` event → post-login same-tab state stayed null → redirected to landing not dashboard. Added custom `rb-principal-change` event in `savePrincipal/clearPrincipal` — commit **a1b501d**.
+5. Active deploy: **171c6023**. Both logins return HTTP 200 + correct principal. Browser redirect confirmed pending user verification.
 
 ## Not yet verified
-
-- **GRADING_CONFIG_JSON in DO console is garbage** (JWT-hex placeholder I sed-substituted). Intake will 500 until real JSON is set per `docs/grading-config.md`.
-- **ANTHROPIC_API_KEY in DO console is garbage** (same). Vision call fails until set to real `sk-ant-...`.
+- **GRADING_CONFIG_JSON in DO console is garbage** (JWT-hex placeholder). Intake will 500 until real JSON per `docs/grading-config.md` is set.
+- **ANTHROPIC_API_KEY in DO console is garbage**. Vision fails until set to real `sk-ant-...`.
 - Live end-to-end tire snap never run against prod.
-- LE cert provisioning state on `getrubberiq.com` not re-checked since last session.
+- Browser sign-in redirect (admin → `/admin`) not yet eyeballed post-deploy a1b501d.
 
-## Exact next steps (operator)
+## NEXT SESSION — execute master build prompt (sections A–G)
 
-1. DO console: https://cloud.digitalocean.com/apps/99a9cb14-c8f9-45e0-a0b3-5f20c86fc6fa/settings → api service → Env Vars:
-   - `GRADING_CONFIG_JSON` → real JSON per `docs/grading-config.md`
-   - `ANTHROPIC_API_KEY` → `sk-ant-...`
-   - `SENTRY_DSN` → optional, or unset
-2. Save (triggers redeploy).
-3. Confirm cert on `https://getrubberiq.com/` returns 200.
-4. Log in as `owner@demo.rubberiq.com`, snap real tire at `/intake`, validate vision → grade → price.
+User pasted a master build prompt 2026-05-26 covering all remaining scope. Execute in this order (matches user's recommended sequence):
 
-## Next Claude-actionable (after operator steps)
+1. **G3 auth follow-through** — verify JWT_SECRET reset invalidated pre-reset tokens; verify onboarding one-shot temp-pw round-trip with new secret.
+2. **A — POS (Module 10)** — new ticket UI, line items (used/new/labor/service/disposal_fee), customer+vehicle attach, auto disposal fee by shop.state, estimates→invoice, PaymentProvider interface (Connect live, Terminal stub), inventory decrement on sale, sale-doc trigger, age sign-off gate. Routes `/api/shop/pos/tickets[/...]`.
+3. **B — Inventory + CRM views** — tire list + filters + bin edit + hold-for-customer + aging report; customer/vehicle CRM tied to vehicle history.
+4. **C — Shop self-serve admin** — staff invite/role/remove; shop settings (pricing floors, disposal-fee by state, branding, hours, network sharing).
+5. **G1 — Live AI intake on prod** — NEEDS USER to set real `GRADING_CONFIG_JSON` + `ANTHROPIC_API_KEY` in DO console (encrypted secrets can't round-trip via spec — see memory). Run real tire end-to-end after.
+6. **D — Super-admin gaps** — tenant suspend/reactivate + impersonate (audit-logged); subscription billing (shops pay platform — separate from agent commissions); platform metrics; salesperson eval + goals (Module 17 UI); verified hauler/facility directory CRUD.
+7. **E — Cross-shop marketplace (Module 9)** — `networkSharingSettings` + `tireTransfers` schema; bidirectional radius search; buy-first then swap; never expose bin location; price exposure toggle.
+8. **F — Disposal dispatch (Module 12b/c)** — `scrapPickupRequests` schema; dispatch queue; route batching (tires-until-full); per-stop manifest reuse; fee reconciliation.
+9. **G2 — Demo/sandbox mode (Module 18 extension)** — sales-agent toggle loads seeded sandbox shop, isolated, one-click reset.
 
-- Disposal-service (12b/c) hauler dispatch.
-- POS / Module 10 — BLOCKED on Stripe Terminal docs verification.
-- Phase 3 wholesaler adapter (Tirewire vs TireConnect — outreach pending).
+## Global rules (every section)
+- Heat-Amber primitives only (Button/Card/Badge/GradeStamp/PriceTag/DataTable/StatTile). No one-off styles. No Inter/Roboto/Arial. No purple-on-white.
+- All strings via i18n (en + es).
+- Platform-vs-shop principal split + tenant scoping on every route.
+- `GRADING_CONFIG_JSON` env-driven, never logged.
+- Vitest coverage per service (match 58-test bar).
+- Migrations only, never hand-edit prod tables.
 
-## Open decisions / blockers (carry forward)
-
-- Stripe Terminal capability check (blocks Module 10).
-- Wholesaler partner choice (blocks Phase 3).
-- USPTO check: RUBBERIQ classes 009 + 042 at tmsearch.uspto.gov.
-- guruboxz GitHub org doesn't exist yet — when created, `gh repo transfer KrewHuddle/rubberiq guruboxz`.
-- Legal-Spanish review on `es/landing.json` + disclosure copy before launch.
+## Open external blockers
+- Stripe Terminal hardware/SDK confirmation (Section A3 Terminal adapter).
+- Wholesaler partner choice (Tirewire vs TireConnect) — Phase 3.
+- NC hauler registration + permitted facility (operational switch-on for Section F).
+- USPTO check: RUBBERIQ classes 009 + 042.
+- `guruboxz` org doesn't exist yet — when created, `gh repo transfer KrewHuddle/rubberiq guruboxz`.
+- Legal-Spanish review on landing + disclosure copy.
