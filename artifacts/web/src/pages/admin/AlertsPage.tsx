@@ -14,7 +14,7 @@ type Alert = {
   type: string;
   severity: number;
   message: string;
-  status: 'open' | 'acknowledged' | 'resolved';
+  status: 'open' | 'ack' | 'resolved';
   createdAt: string;
 };
 
@@ -41,7 +41,7 @@ export function AlertsPage() {
   };
   const statusTone = (s: Alert['status']): 'red' | 'yellow' | 'green' => {
     if (s === 'open') return 'red';
-    if (s === 'acknowledged') return 'yellow';
+    if (s === 'ack') return 'yellow';
     return 'green';
   };
 

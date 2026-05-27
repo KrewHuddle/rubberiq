@@ -17,6 +17,9 @@ pnpm monorepo · Drizzle schema (24 tables) · Express 5 + TS strict API · auth
 ### Phase 1 (the moat — AI intake)
 Vision parse (Anthropic Opus) → deterministic parsers (size, DOT) → deterministic grading rules → pricing rules → tire row + auto-scrap on FAIL (one DB tx). PWA camera. **58 vitest passing** (grading, pricing, parsers, manifest, sale-doc threshold, db SSL parser, commission compute).
 
+### Phase 2.5 (go-to-market)
+- **Module 16 health aggregator**: `services/health/score.ts` (pure 5-part rubric, 70/40 thresholds) + `services/health/aggregate.ts` (per-shop 28d window: login recency, intake, paid invoices, last-invoice-void as payment-failed proxy; upserts `health_signals`, mirrors to `shops.health{Score,Band,UpdatedAt}`). **Module 17 alert emission** wired: band downgrade → `account_alerts` row (`churn_risk` or `dormant`, severity 2/3, routed to attributed agent). Runner: `pnpm --filter @rubberiq/api-server health:aggregate`.
+
 ### Phase 2 (sellable v1)
 - **Shop dashboard**: `/api/shop/stats` (5 KPIs · 30s refetch) wired to `ShopDashboardPage`.
 - **Sale-doc generator (Module 11)**: `services/saleDocs/{generate,render}.ts` + routes (`POST /sale-docs`, `GET /:id/html`, `POST /:id/sign`) + `SaleDocPage` with canvas signature pad + age-disclosure auto-flag at >60mo.
@@ -52,8 +55,6 @@ Vision parse (Anthropic Opus) → deterministic parsers (size, DOT) → determin
 
 ## Next Claude-actionable (after operator steps)
 
-- Module 16 health-score job (cron-style aggregate on `health_signals`).
-- Module 17 alerts auto-emission rules.
 - Module 18 onboarding step machine (`/api/onboarding/*`).
 - Disposal-service (12b/c) hauler dispatch.
 - POS / Module 10 — BLOCKED on Stripe Terminal docs verification.
