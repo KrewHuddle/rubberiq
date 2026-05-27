@@ -35,12 +35,12 @@ async function main(): Promise<void> {
   app.use(attachPrincipal);
 
   app.use('/', healthRouter);
-  app.use('/api/auth', authRouter);
-  app.use('/api/admin', adminRouter);
-  app.use('/api/shop', shopRouter);
-  app.use('/api/sales', salesRouter);
-  app.use('/api/tires/intake', intakeRouter);
-  app.use('/api/onboarding', onboardingRouter);
+  app.use(['/api/auth', '/auth'], authRouter);
+  app.use(['/api/admin', '/admin'], adminRouter);
+  app.use(['/api/shop', '/shop'], shopRouter);
+  app.use(['/api/sales', '/sales'], salesRouter);
+  app.use(['/api/tires/intake', '/tires/intake'], intakeRouter);
+  app.use(['/api/onboarding', '/onboarding'], onboardingRouter);
 
   app.use((req, res) => res.status(404).json({ error: 'not_found', path: req.path }));
 
