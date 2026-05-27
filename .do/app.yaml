@@ -105,8 +105,6 @@ static_sites:
       pnpm --filter @rubberiq/web build
     output_dir: artifacts/web/dist
     catchall_document: index.html
-    routes:
-      - path: /
     envs:
       - key: NODE_ENV
         scope: BUILD_TIME
