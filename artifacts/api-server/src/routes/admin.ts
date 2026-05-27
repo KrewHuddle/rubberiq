@@ -5,7 +5,7 @@
  */
 import { Router } from 'express';
 import { z } from 'zod';
-import { eq } from 'drizzle-orm';
+import { eq, sql } from 'drizzle-orm';
 import { requirePlatform } from '../auth.js';
 import { getDb, schema } from '@rubberiq/db';
 import { createAgent, assignShopToAgent } from '../services/sales/agents.js';
@@ -13,6 +13,33 @@ import { createAgent, assignShopToAgent } from '../services/sales/agents.js';
 export const adminRouter: Router = Router();
 
 adminRouter.use(requirePlatform('super_admin'));
+
+/** Default monthly subscription used to compute MRR until shops.subscriptionRateCents lands. */
+const DEFAULT_SUBSCRIPTION_CENTS = 14_900;
+
+adminRouter.get('/stats', async (_req, res) => {
+  const db = getDb();
+  const [shopsLive] = await db
+    .select({ n: sql<number>`count(*)::int` })
+    .from(schema.shops)
+    .where(sql`${schema.shops.subscriptionStatus} <> 'cancelled' AND ${schema.shops.suspendedAt} IS NULL`);
+  const [tiresLogged] = await db.select({ n: sql<number>`count(*)::int` }).from(schema.tires);
+  const [scrapHauled] = await db
+    .select({ n: sql<number>`count(*)::int` })
+    .from(schema.scrapTires)
+    .where(sql`${schema.scrapTires.status} = 'delivered'`);
+  const [agentsActive] = await db
+    .select({ n: sql<number>`count(*)::int` })
+    .from(schema.salesAgents);
+  const live = shopsLive?.n ?? 0;
+  return res.json({
+    shopsLive: live,
+    mrrCents: live * DEFAULT_SUBSCRIPTION_CENTS,
+    tiresLogged: tiresLogged?.n ?? 0,
+    scrapHauled: scrapHauled?.n ?? 0,
+    agentsActive: agentsActive?.n ?? 0,
+  });
+});
 
 adminRouter.get('/shops', async (_req, res) => {
   const db = getDb();
