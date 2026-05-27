@@ -86,11 +86,11 @@ export async function visionParse(input: VisionParseInput): Promise<Vision> {
     ],
   });
 
-  const textBlock = resp.content.find((b) => b.type === 'text');
+  const textBlock = resp.content.find((b: { type: string }) => b.type === 'text');
   if (!textBlock || textBlock.type !== 'text') {
     throw new Error('vision call returned no text content');
   }
-  const raw = textBlock.text.trim();
+  const raw = (textBlock as { type: 'text'; text: string }).text.trim();
 
   // Be tolerant of accidental code fences.
   const stripped = raw.replace(/^```(?:json)?\s*/i, '').replace(/```\s*$/i, '').trim();

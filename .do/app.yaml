@@ -44,6 +44,8 @@ services:
       corepack enable
       pnpm install --frozen-lockfile
       pnpm --filter @rubberiq/db build
+      pnpm --filter @rubberiq/anthropic build
+      pnpm --filter @rubberiq/payments build
       pnpm --filter @rubberiq/api-server build
     run_command: pnpm --filter @rubberiq/api-server start
     environment_slug: node-js
