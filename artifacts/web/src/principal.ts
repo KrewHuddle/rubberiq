@@ -19,6 +19,7 @@ export type Principal = ShopPrincipal | PlatformPrincipal;
 
 const TOKEN_KEY = 'rb_token';
 const PRINCIPAL_KEY = 'rb_principal';
+const PRINCIPAL_EVENT = 'rb-principal-change';
 
 export function loadPrincipal(): Principal | null {
   try {
@@ -40,21 +41,28 @@ export function loadToken(): string | null {
 export function savePrincipal(token: string, principal: Principal): void {
   localStorage.setItem(TOKEN_KEY, token);
   localStorage.setItem(PRINCIPAL_KEY, JSON.stringify(principal));
+  window.dispatchEvent(new Event(PRINCIPAL_EVENT));
 }
 
 export function clearPrincipal(): void {
   localStorage.removeItem(TOKEN_KEY);
   localStorage.removeItem(PRINCIPAL_KEY);
+  window.dispatchEvent(new Event(PRINCIPAL_EVENT));
 }
 
 export function usePrincipal(): Principal | null {
   const [p, setP] = useState<Principal | null>(() => loadPrincipal());
   useEffect(() => {
+    const refresh = () => setP(loadPrincipal());
     const onStorage = (e: StorageEvent) => {
-      if (e.key === PRINCIPAL_KEY) setP(loadPrincipal());
+      if (e.key === PRINCIPAL_KEY) refresh();
     };
     window.addEventListener('storage', onStorage);
-    return () => window.removeEventListener('storage', onStorage);
+    window.addEventListener(PRINCIPAL_EVENT, refresh);
+    return () => {
+      window.removeEventListener('storage', onStorage);
+      window.removeEventListener(PRINCIPAL_EVENT, refresh);
+    };
   }, []);
   return p;
 }
