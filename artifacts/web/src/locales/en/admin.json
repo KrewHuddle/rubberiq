@@ -6,7 +6,8 @@
     "plans": "Commission plans",
     "commissions": "Commissions",
     "health": "Health",
-    "alerts": "Alerts"
+    "alerts": "Alerts",
+    "disposal": "Dispatch"
   },
   "overview": {
     "title": "Platform",
@@ -119,6 +120,137 @@
       "message": "Message",
       "status": "Status",
       "created": "Created"
+    }
+  },
+  "disposal": {
+    "title": "Disposal dispatch",
+    "dayCount_one": "{{count}} day",
+    "dayCount_other": "{{count}} days",
+    "verified": "Verified",
+    "unverified": "Unverified",
+    "stats": {
+      "shopsWaiting": "Shops waiting",
+      "tiresOnHand": "Tires on hand",
+      "longestWait": "Longest wait",
+      "openRoutes": "Open routes"
+    },
+    "status": {
+      "scheduled": "Scheduled",
+      "in_transit": "In transit",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+    "queue": {
+      "title": "Pickup queue",
+      "empty": "No scrap on hand at any shop.",
+      "cols": {
+        "shop": "Shop",
+        "location": "Location",
+        "onHand": "On hand",
+        "waiting": "Waiting",
+        "fee": "Fee / tire"
+      }
+    },
+    "map": {
+      "title": "Scrap volume by location",
+      "empty": "No scrap on hand.",
+      "cols": { "location": "Location", "shops": "Shops", "onHand": "On hand", "oldest": "Oldest" }
+    },
+    "builder": {
+      "title": "Plan a route",
+      "hauler": "Hauler",
+      "facility": "Destination facility",
+      "capacity": "Capacity (tires)",
+      "capacityHint": "Blank uses the hauler's registered truck capacity.",
+      "state": "State",
+      "allStates": "All states",
+      "maxStops": "Max stops",
+      "allowPartial": "Allow partial pickups",
+      "scheduledFor": "Scheduled for",
+      "submit": "Create route",
+      "created": "Route created — {{tires}} tires across {{stops}} stops.",
+      "needVerified": "Add and verify at least one hauler and one destination facility before dispatching."
+    },
+    "routes": {
+      "title": "Routes",
+      "empty": "No routes dispatched yet.",
+      "open": "Open",
+      "cols": {
+        "created": "Created",
+        "hauler": "Hauler",
+        "tires": "Tires",
+        "stops": "Stops",
+        "status": "Status",
+        "collected": "Collected",
+        "cost": "Haul cost",
+        "margin": "Margin"
+      }
+    },
+    "detail": {
+      "title": "Route detail",
+      "close": "Close",
+      "noStops": "No stops on this route.",
+      "cost": "Haul cost (cents)",
+      "reconcile": "Reconcile",
+      "reconciled": "Reconciled.",
+      "advanceTitle": "Advance run",
+      "stopCols": {
+        "shop": "Shop",
+        "tires": "Tires",
+        "collected": "Collected",
+        "cost": "Cost share",
+        "margin": "Margin"
+      }
+    },
+    "directories": { "title": "Verified directories" },
+    "haulers": {
+      "title": "Haulers",
+      "hint": "NC DEQ scrap-tire hauler registration / PA DEP Act 90 transporter authorization. Verify before dispatching.",
+      "name": "Name",
+      "state": "State",
+      "permit": "Permit #",
+      "capacity": "Truck capacity",
+      "contact": "Contact",
+      "phone": "Phone",
+      "add": "Add hauler",
+      "empty": "No haulers yet.",
+      "cols": {
+        "name": "Name",
+        "state": "State",
+        "permit": "Permit #",
+        "capacity": "Capacity",
+        "verified": "Verified"
+      }
+    },
+    "facilities": {
+      "title": "Destination facilities",
+      "hint": "Permitted disposal facility — capture the permit number and retain a copy of the permit.",
+      "name": "Name",
+      "state": "State",
+      "permit": "Permit #",
+      "city": "City",
+      "add": "Add facility",
+      "empty": "No facilities yet.",
+      "cols": {
+        "name": "Name",
+        "state": "State",
+        "permit": "Permit #",
+        "city": "City",
+        "verified": "Verified"
+      }
+    },
+    "errors": {
+      "hauler_not_found": "Hauler not found.",
+      "facility_not_found": "Facility not found.",
+      "hauler_not_verified": "That hauler is not verified yet.",
+      "facility_not_verified": "That facility is not verified yet.",
+      "invalid_capacity": "Set a truck capacity — the hauler has none registered.",
+      "invalid_max_stops": "Max stops must be at least 1.",
+      "invalid_haul_cost": "Haul cost must be zero or more.",
+      "no_scrap_available": "No scrap on hand to collect.",
+      "route_not_found": "Route not found.",
+      "route_has_no_stops": "That route has no stops to reconcile.",
+      "route_already_closed": "That route is already completed or cancelled."
     }
   }
 }

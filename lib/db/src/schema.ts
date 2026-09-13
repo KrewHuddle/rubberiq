@@ -423,6 +423,8 @@ export const hauls = pgTable('hauls', {
   destinationFacilityId: uuid()
     .notNull()
     .references(() => destinationFacilities.id),
+  /** Set when the haul is one stop on a platform-dispatched multi-shop route (Module 12b). */
+  routeId: uuid(),
   status: haulStatusEnum().notNull().default('scheduled'),
   scheduledFor: timestamp({ withTimezone: true }),
   pickedUpAt: timestamp({ withTimezone: true }),
@@ -430,9 +432,54 @@ export const hauls = pgTable('hauls', {
   tireCount: integer().notNull().default(0),
   manifestUrl: text(), // PA Act 90 manifest copy
   ncCertificationUrl: text(), // NC Scrap Tire Certification (Parts I/II)
+  /** What the hauler charges us for this stop (cost side). */
   feeCents: integer().notNull().default(0),
+  /** What the shop collected from customers in disposal fees for these tires (revenue side). */
+  collectedCents: integer().notNull().default(0),
+  /** collectedCents − feeCents. Stored so the ledger is stable if shop fees change later. */
+  marginCents: integer(),
+  reconciledAt: timestamp({ withTimezone: true }),
   createdAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
 });
+
+/**
+ * dispatchRoutes — Module 12b. One truck run batching scrap pickups across
+ * several shops ("tires until full"). Each stop materializes as a `hauls` row
+ * carrying this route's id, so shop-side compliance (manifests, NC cert) is
+ * unchanged: a stop is still a haul.
+ */
+export const dispatchRoutes = pgTable(
+  'dispatch_routes',
+  {
+    id: uuid().primaryKey().defaultRandom(),
+    haulerId: uuid()
+      .notNull()
+      .references(() => haulers.id),
+    destinationFacilityId: uuid()
+      .notNull()
+      .references(() => destinationFacilities.id),
+    status: haulStatusEnum().notNull().default('scheduled'),
+    /** Truck capacity in tires used to plan this run. */
+    capacity: integer().notNull(),
+    plannedTireCount: integer().notNull().default(0),
+    stopCount: integer().notNull().default(0),
+    /** Optional state filter the route was planned against ('NC', 'PA', …). */
+    state: text(),
+    scheduledFor: timestamp({ withTimezone: true }),
+    // Not FK-constrained — mirrors scrap_tires.haul_id; keeps the disposal
+    // section free of a forward reference into the platform tables.
+    createdByPlatformUserId: uuid(),
+    collectedCents: integer().notNull().default(0),
+    haulCostCents: integer().notNull().default(0),
+    marginCents: integer(),
+    reconciledAt: timestamp({ withTimezone: true }),
+    createdAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => ({
+    statusIdx: index('dispatch_routes_status_idx').on(t.status),
+    haulerIdx: index('dispatch_routes_hauler_idx').on(t.haulerId),
+  }),
+);
 
 export const disposalFees = pgTable('disposal_fees', {
   id: uuid().primaryKey().defaultRandom(),

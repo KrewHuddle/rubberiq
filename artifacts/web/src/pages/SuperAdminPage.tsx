@@ -12,6 +12,7 @@ import { CommissionPlansPage } from './admin/CommissionPlansPage.js';
 import { CommissionsPage } from './admin/CommissionsPage.js';
 import { HealthPage } from './admin/HealthPage.js';
 import { AlertsPage } from './admin/AlertsPage.js';
+import { DisposalPage } from './admin/DisposalPage.js';
 
 export function SuperAdminPage() {
   const { t } = useTranslation('admin');
@@ -35,6 +36,7 @@ export function SuperAdminPage() {
         <TabLink to="/admin/commissions">{t('tabs.commissions')}</TabLink>
         <TabLink to="/admin/health">{t('tabs.health')}</TabLink>
         <TabLink to="/admin/alerts">{t('tabs.alerts')}</TabLink>
+        <TabLink to="/admin/disposal">{t('tabs.disposal')}</TabLink>
       </nav>
 
       <Routes>
@@ -45,6 +47,7 @@ export function SuperAdminPage() {
         <Route path="commissions" element={<CommissionsPage />} />
         <Route path="health" element={<HealthPage />} />
         <Route path="alerts" element={<AlertsPage />} />
+        <Route path="disposal" element={<DisposalPage />} />
       </Routes>
     </div>
   );

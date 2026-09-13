@@ -6,7 +6,8 @@
     "plans": "Planes de comisión",
     "commissions": "Comisiones",
     "health": "Salud",
-    "alerts": "Alertas"
+    "alerts": "Alertas",
+    "disposal": "Despacho"
   },
   "overview": {
     "title": "Plataforma",
@@ -119,6 +120,142 @@
       "message": "Mensaje",
       "status": "Estado",
       "created": "Creado"
+    }
+  },
+  "disposal": {
+    "title": "Despacho de desecho",
+    "dayCount_one": "{{count}} día",
+    "dayCount_other": "{{count}} días",
+    "verified": "Verificado",
+    "unverified": "Sin verificar",
+    "stats": {
+      "shopsWaiting": "Talleres en espera",
+      "tiresOnHand": "Llantas en existencia",
+      "longestWait": "Espera más larga",
+      "openRoutes": "Rutas abiertas"
+    },
+    "status": {
+      "scheduled": "Programada",
+      "in_transit": "En tránsito",
+      "completed": "Completada",
+      "cancelled": "Cancelada"
+    },
+    "queue": {
+      "title": "Cola de recolección",
+      "empty": "No hay chatarra en ningún taller.",
+      "cols": {
+        "shop": "Taller",
+        "location": "Ubicación",
+        "onHand": "En existencia",
+        "waiting": "Esperando",
+        "fee": "Tarifa / llanta"
+      }
+    },
+    "map": {
+      "title": "Volumen de chatarra por ubicación",
+      "empty": "No hay chatarra en existencia.",
+      "cols": {
+        "location": "Ubicación",
+        "shops": "Talleres",
+        "onHand": "En existencia",
+        "oldest": "Más antigua"
+      }
+    },
+    "builder": {
+      "title": "Planificar una ruta",
+      "hauler": "Transportista",
+      "facility": "Instalación de destino",
+      "capacity": "Capacidad (llantas)",
+      "capacityHint": "Vacío usa la capacidad de camión registrada del transportista.",
+      "state": "Estado",
+      "allStates": "Todos los estados",
+      "maxStops": "Paradas máximas",
+      "allowPartial": "Permitir recolecciones parciales",
+      "scheduledFor": "Programada para",
+      "submit": "Crear ruta",
+      "created": "Ruta creada — {{tires}} llantas en {{stops}} paradas.",
+      "needVerified": "Agregue y verifique al menos un transportista y una instalación de destino antes de despachar."
+    },
+    "routes": {
+      "title": "Rutas",
+      "empty": "Aún no hay rutas despachadas.",
+      "open": "Abrir",
+      "cols": {
+        "created": "Creada",
+        "hauler": "Transportista",
+        "tires": "Llantas",
+        "stops": "Paradas",
+        "status": "Estado",
+        "collected": "Cobrado",
+        "cost": "Costo de acarreo",
+        "margin": "Margen"
+      }
+    },
+    "detail": {
+      "title": "Detalle de ruta",
+      "close": "Cerrar",
+      "noStops": "Esta ruta no tiene paradas.",
+      "cost": "Costo de acarreo (centavos)",
+      "reconcile": "Conciliar",
+      "reconciled": "Conciliada.",
+      "advanceTitle": "Avanzar recorrido",
+      "stopCols": {
+        "shop": "Taller",
+        "tires": "Llantas",
+        "collected": "Cobrado",
+        "cost": "Parte del costo",
+        "margin": "Margen"
+      }
+    },
+    "directories": { "title": "Directorios verificados" },
+    "haulers": {
+      "title": "Transportistas",
+      "hint": "Registro de transportista de llantas de desecho de NC DEQ / autorización de transportista Act 90 de PA DEP. Verifique antes de despachar.",
+      "name": "Nombre",
+      "state": "Estado",
+      "permit": "N.º de permiso",
+      "capacity": "Capacidad del camión",
+      "contact": "Contacto",
+      "phone": "Teléfono",
+      "add": "Agregar transportista",
+      "empty": "Aún no hay transportistas.",
+      "cols": {
+        "name": "Nombre",
+        "state": "Estado",
+        "permit": "N.º de permiso",
+        "capacity": "Capacidad",
+        "verified": "Verificado"
+      }
+    },
+    "facilities": {
+      "title": "Instalaciones de destino",
+      "hint": "Instalación de disposición con permiso — registre el número de permiso y conserve una copia.",
+      "name": "Nombre",
+      "state": "Estado",
+      "permit": "N.º de permiso",
+      "city": "Ciudad",
+      "add": "Agregar instalación",
+      "empty": "Aún no hay instalaciones.",
+      "cols": {
+        "name": "Nombre",
+        "state": "Estado",
+        "permit": "N.º de permiso",
+        "city": "Ciudad",
+        "verified": "Verificado"
+      }
+    },
+    "errors": {
+      "hauler_not_found": "Transportista no encontrado.",
+      "facility_not_found": "Instalación no encontrada.",
+      "hauler_not_verified": "Ese transportista aún no está verificado.",
+      "facility_not_verified": "Esa instalación aún no está verificada.",
+      "invalid_capacity": "Indique una capacidad de camión — el transportista no tiene ninguna registrada.",
+      "invalid_max_stops": "Las paradas máximas deben ser al menos 1.",
+      "invalid_haul_cost": "El costo de acarreo debe ser cero o mayor.",
+      "no_scrap_available": "No hay chatarra para recolectar.",
+      "route_not_found": "Ruta no encontrada.",
+      "route_has_no_stops": "Esa ruta no tiene paradas para conciliar.",
+      "route_already_closed": "Esa ruta ya está completada o cancelada."
     }
   }
 }
