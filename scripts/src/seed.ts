@@ -28,6 +28,7 @@ async function main(): Promise<void> {
     process.exit(1);
   }
 
+  const rotate = process.argv.includes('--rotate');
   const ownerPassword = process.env.SEED_OWNER_PASSWORD ?? 'demo!1234';
   const adminPassword = process.env.SEED_ADMIN_PASSWORD ?? 'admin!1234';
 
@@ -81,7 +82,16 @@ async function main(): Promise<void> {
   });
 
   if (existingOwner) {
-    console.log(`seed: owner ${OWNER_EMAIL} exists (id=${existingOwner.id})`);
+    if (rotate) {
+      const passwordHash = await bcrypt.hash(ownerPassword, 12);
+      await db
+        .update(schema.users)
+        .set({ passwordHash })
+        .where(eq(schema.users.id, existingOwner.id));
+      console.log(`seed: owner ${OWNER_EMAIL} password rotated (id=${existingOwner.id})`);
+    } else {
+      console.log(`seed: owner ${OWNER_EMAIL} exists (id=${existingOwner.id})`);
+    }
   } else {
     const passwordHash = await bcrypt.hash(ownerPassword, 12);
     const [owner] = await db
@@ -104,7 +114,16 @@ async function main(): Promise<void> {
   });
 
   if (existingAdmin) {
-    console.log(`seed: admin ${ADMIN_EMAIL} exists (id=${existingAdmin.id})`);
+    if (rotate) {
+      const passwordHash = await bcrypt.hash(adminPassword, 12);
+      await db
+        .update(schema.platformUsers)
+        .set({ passwordHash })
+        .where(eq(schema.platformUsers.id, existingAdmin.id));
+      console.log(`seed: admin ${ADMIN_EMAIL} password rotated (id=${existingAdmin.id})`);
+    } else {
+      console.log(`seed: admin ${ADMIN_EMAIL} exists (id=${existingAdmin.id})`);
+    }
   } else {
     const passwordHash = await bcrypt.hash(adminPassword, 12);
     const [admin] = await db
@@ -120,7 +139,7 @@ async function main(): Promise<void> {
     console.log(`seed: admin ${ADMIN_EMAIL} created (id=${admin.id})`);
   }
 
-  console.log('\nseed: complete.');
+  console.log(`\nseed: complete${rotate ? ' (rotate mode)' : ''}.`);
   console.log('  shop slug: %s', SHOP_SLUG);
   console.log('  shop owner: %s', OWNER_EMAIL);
   console.log('  platform admin: %s', ADMIN_EMAIL);

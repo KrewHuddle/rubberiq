@@ -3,70 +3,97 @@
 Session handoff per CLAUDE.md. Read at start of every session. Under 100 lines.
 
 ## Live URLs
-- **App** (default): https://rubberiq-yb7xf.ondigitalocean.app
-- **Custom domain**: https://getrubberiq.com
+- **App**: https://rubberiq-yb7xf.ondigitalocean.app · **Domain**: https://getrubberiq.com
 - **Repo (public)**: https://github.com/KrewHuddle/rubberiq
 - **DO App ID**: `99a9cb14-c8f9-45e0-a0b3-5f20c86fc6fa`
-- **DB**: `rubberiq` on cluster `guru-boxz-db` (`2844a349-7820-47de-85e1-706a56a6de65`), 24 tables, seeded.
+- **DB**: `rubberiq` on `guru-boxz-db` (`2844a349-7820-47de-85e1-706a56a6de65`), **online** 2026-09-13.
 
 ## Demo credentials (set 2026-05-26)
-- **Platform super-admin**: `admin@rubberiq.com` / `Glass@1995` (no shopSlug)
-- **Shop owner**: `owner@demo.rubberiq.com` / `Glass@1995` + shopSlug `demo`
-- Rotate before real go-live.
+`admin@rubberiq.com` / `Glass@1995` (no shopSlug) · `owner@demo.rubberiq.com` / `Glass@1995` + slug `demo`.
+⚠️ **This repo is public and these sit in git history — treat them as burned.** Rotate before anything
+real runs; add no further credentials here. `pnpm db:seed --rotate` resets both from
+`SEED_OWNER_PASSWORD` / `SEED_ADMIN_PASSWORD`.
 
 ## Completed
+**Phase 0/1** — pnpm monorepo · Drizzle · Express 5 + TS strict · auth/roles · Heat-Amber design
+system · en/es i18n · React 19 + Vite 7 + PWA. Vision parse → size/DOT parsers → grading → pricing →
+tire row + auto-scrap on FAIL (one tx). PWA camera.
+**Phase 2** — shop dashboard · sale-doc + signature pad + >60mo age disclosure (M11) · shop-side
+disposal queue + NC/PA manifests (M12a) · agents + commissions (M14) · super-admin shell · landing.
+**Phase 2.5** — M16 health aggregator (28d, 70/40) · M17 alert emission · M18 onboarding machine.
 
-### Phase 0 (foundation)
-pnpm monorepo · Drizzle schema (24 tables) · Express 5 + TS strict API · auth/roles · Heat-Amber design system · en/es i18n · React 19 + Vite 7 + PWA.
+### M12b/12c — disposal dispatch (this session; = section F below)
+Second revenue stream, platform side.
+- `services/disposal/plan.ts` — **pure, no I/O**: `planRoute` ("tires until full", longest-waiting
+  first, partial stops, `maxStops`) + `reconcileRouteFees` (cost split by tire share; last stop
+  absorbs rounding so shares re-sum exactly). 16 unit tests.
+- `services/disposal/dispatch.ts` — `getPickupQueue` (cross-shop demand), `getScrapVolumeMap`,
+  `createRoute` (one tx; re-reads scrap **inside** it so a concurrent shop-side haul cannot
+  double-claim; persists *claimed* not projected counts), `advanceRoute` (whole truck moves as one;
+  cancel returns scrap to the queue), `reconcileRoute`.
+- A stop is an ordinary `hauls` row tagged `routeId`, so NC cert / PA Act 90 output is unchanged.
+- `/api/admin/disposal/{queue,scrap-map,routes}` + `routes/:id/{advance,reconcile}`; hauler/facility
+  **directory CRUD + verify toggle** — `verified` gates dispatch. `DisposalPage.tsx`, en + es.
+- Schema: new `dispatch_routes`; `hauls` gains `routeId`/`collectedCents`/`marginCents`/
+  `reconciledAt`. Migration `0001_quiet_risque.sql` additive only, **not applied to prod**.
 
-### Phase 1 (the moat — AI intake)
-Vision parse (Anthropic Opus) → deterministic parsers (size, DOT) → grading rules → pricing rules → tire row + auto-scrap on FAIL (one DB tx). PWA camera. **58 vitest passing**.
+## 2026-05-26 production fixes
+1. DO ingress strips `/api` despite `preserve_path_prefix: true` → dual-mount `['/api/auth','/auth']`,
+   commit **721f2e3**. A duplicate of this fix was re-derived in 2026-09 and dropped at rebase; do not
+   write it a third time.
+2. `JWT_SECRET` corrupted by spec round-trip (encrypted `EV[]` re-stored as plaintext). **Encrypted
+   secrets cannot round-trip** — set them by hand in the console.
+3. App missing from `guru-boxz-db` firewall trusted sources → login queries hung silently.
+4. `usePrincipal` only heard cross-tab `storage`; added `rb-principal-change` — commit **a1b501d**.
 
-### Phase 2 (sellable v1)
-Shop dashboard (5 KPIs · 30s refetch) · Sale-doc generator (Module 11 + canvas signature + age-disclosure >60mo) · Disposal queue + NC/PA manifests (Module 12 shop-side) · Sales-agent + commissions (Module 14) · Super-admin tabbed shell (`/admin/{,shops,agents,plans,commissions,health,alerts}`) · React landing · `GRADING_CONFIG_JSON` env-driven.
+## Build gotcha — read before debugging TS
+Stale `tsconfig.tsbuildinfo` with **no `dist/`** makes `tsc --build` skip emit → **TS6305** across
+unrelated files and vitest cannot resolve `@rubberiq/db`. Fix:
+`find . -name "*.tsbuildinfo" -not -path "*/node_modules/*" -delete && npx tsc --build --force`.
+Not a code error. A "Done" from tsc is not proof it emitted — `ls` the output dir.
 
-### Phase 2.5 (go-to-market)
-Module 16 health aggregator (28d, 70/40 bands) · Module 17 alert emission (band downgrade → `account_alerts`) · Module 18 electronic onboarding state machine + routes.
+## Verification status
+`pnpm typecheck` clean · **94 tests / 11 files** (was 78). Dispatch verified end-to-end on a throwaway
+local Postgres (created→migrated→seeded→exercised→dropped; prod untouched): 3 shops / 140 tires;
+queue oldest-first; unverified hauler → 400; capacity 100 → 60 full + 40 partial + 1 skipped;
+reconcile collected 30000c, cost 10000c, margin 20000c (6667 bps), split 6000/4000; closed route → 400.
+Prettier is **not** enforced and the baseline is drifted — do not mass-reformat.
 
-### 2026-05-26 production fixes
-1. DO ingress strips `/api` prefix despite `preserve_path_prefix: true` (DO bug). Fixed via dual-mount Express routes `['/api/auth','/auth']` in `artifacts/api-server/src/index.ts` — commit **721f2e3**.
-2. `JWT_SECRET` corrupted by spec round-trip (encrypted EV[] re-stored as plaintext). Reset to 64-char plaintext via `doctl apps update --spec`.
-3. RubberIQ app missing from `guru-boxz-db` firewall trusted sources → login DB queries hung silently. Added `app:99a9cb14-...` rule.
-4. `usePrincipal` only listened to cross-tab `storage` event → post-login same-tab state stayed null → redirected to landing not dashboard. Added custom `rb-principal-change` event in `savePrincipal/clearPrincipal` — commit **a1b501d**.
-5. Active deploy: **171c6023**. Both logins return HTTP 200 + correct principal. Browser redirect confirmed pending user verification.
+## NEXT SESSION — master build prompt, in order
+1. **G3 auth** — verify the `JWT_SECRET` reset killed pre-reset tokens; verify the onboarding
+   one-shot temp-password round-trip under the new secret.
+2. **A — POS (M10)** — tickets, line items (used/new/labor/service/disposal_fee), customer+vehicle
+   attach, auto disposal fee by `shop.state`, estimates→invoice, `PaymentProvider` (Connect live,
+   Terminal stub), inventory decrement, sale-doc trigger, age sign-off gate.
+3. **B — Inventory + CRM** — list/filters/bin edit/hold-for-customer/aging; CRM tied to vehicle history.
+4. **C — Shop self-serve admin** — staff invite/role/remove; settings (pricing floors, disposal fee by
+   state, branding, hours, network sharing).
+5. **G1 — Live AI intake on prod** — needs real `GRADING_CONFIG_JSON` + `ANTHROPIC_API_KEY` set by
+   hand in the DO console (see fix 2).
+6. **D — Super-admin gaps** — suspend/reactivate + impersonate (audit-logged); subscription billing
+   (shops→platform, separate from agent commissions); platform metrics; salesperson eval + goals.
+   *Hauler/facility directory CRUD is **done** — see M12c.*
+7. **E — Marketplace (M9)** — `networkSharingSettings` + `tireTransfers`; bidirectional radius search;
+   buy-first-then-swap; never expose bin location; price-exposure toggle.
+8. ~~**F — Disposal dispatch (M12b/c)**~~ — **DONE this session.**
+9. **G2 — Demo/sandbox** — agent toggle loads a seeded sandbox shop, isolated, one-click reset.
+
+## Global rules
+Heat-Amber primitives only (no one-off styles, no Inter/Roboto/Arial, no purple-on-white) · every
+string via i18n (en + es) · platform-vs-shop principal split + tenant scoping on every route ·
+`GRADING_CONFIG_JSON` env-driven, never logged · vitest per service · migrations only.
 
 ## Not yet verified
-- **GRADING_CONFIG_JSON in DO console is garbage** (JWT-hex placeholder). Intake will 500 until real JSON per `docs/grading-config.md` is set.
-- **ANTHROPIC_API_KEY in DO console is garbage**. Vision fails until set to real `sk-ant-...`.
+- **Migration 0001 is NOT applied to prod.** Needs `DATABASE_URL` + a go-ahead; no `.env` locally.
+- `GRADING_CONFIG_JSON` / `ANTHROPIC_API_KEY` in the DO console are placeholder garbage — intake 500s
+  and vision fails until set (`docs/grading-config.md`).
 - Live end-to-end tire snap never run against prod.
-- Browser sign-in redirect (admin → `/admin`) not yet eyeballed post-deploy a1b501d.
+- **The app is archived and 503s** — active deployment cause "app spec updated, app archived"
+  (2026-08-28); last code deploy `8a81b18`, 2026-05-27. The DO **account is active** (verified
+  2026-09-14); the 503 is archival, not a billing suspension.
 
-## NEXT SESSION — execute master build prompt (sections A–G)
-
-User pasted a master build prompt 2026-05-26 covering all remaining scope. Execute in this order (matches user's recommended sequence):
-
-1. **G3 auth follow-through** — verify JWT_SECRET reset invalidated pre-reset tokens; verify onboarding one-shot temp-pw round-trip with new secret.
-2. **A — POS (Module 10)** — new ticket UI, line items (used/new/labor/service/disposal_fee), customer+vehicle attach, auto disposal fee by shop.state, estimates→invoice, PaymentProvider interface (Connect live, Terminal stub), inventory decrement on sale, sale-doc trigger, age sign-off gate. Routes `/api/shop/pos/tickets[/...]`.
-3. **B — Inventory + CRM views** — tire list + filters + bin edit + hold-for-customer + aging report; customer/vehicle CRM tied to vehicle history.
-4. **C — Shop self-serve admin** — staff invite/role/remove; shop settings (pricing floors, disposal-fee by state, branding, hours, network sharing).
-5. **G1 — Live AI intake on prod** — NEEDS USER to set real `GRADING_CONFIG_JSON` + `ANTHROPIC_API_KEY` in DO console (encrypted secrets can't round-trip via spec — see memory). Run real tire end-to-end after.
-6. **D — Super-admin gaps** — tenant suspend/reactivate + impersonate (audit-logged); subscription billing (shops pay platform — separate from agent commissions); platform metrics; salesperson eval + goals (Module 17 UI); verified hauler/facility directory CRUD.
-7. **E — Cross-shop marketplace (Module 9)** — `networkSharingSettings` + `tireTransfers` schema; bidirectional radius search; buy-first then swap; never expose bin location; price exposure toggle.
-8. **F — Disposal dispatch (Module 12b/c)** — `scrapPickupRequests` schema; dispatch queue; route batching (tires-until-full); per-stop manifest reuse; fee reconciliation.
-9. **G2 — Demo/sandbox mode (Module 18 extension)** — sales-agent toggle loads seeded sandbox shop, isolated, one-click reset.
-
-## Global rules (every section)
-- Heat-Amber primitives only (Button/Card/Badge/GradeStamp/PriceTag/DataTable/StatTile). No one-off styles. No Inter/Roboto/Arial. No purple-on-white.
-- All strings via i18n (en + es).
-- Platform-vs-shop principal split + tenant scoping on every route.
-- `GRADING_CONFIG_JSON` env-driven, never logged.
-- Vitest coverage per service (match 58-test bar).
-- Migrations only, never hand-edit prod tables.
-
-## Open external blockers
-- Stripe Terminal hardware/SDK confirmation (Section A3 Terminal adapter).
-- Wholesaler partner choice (Tirewire vs TireConnect) — Phase 3.
-- NC hauler registration + permitted facility (operational switch-on for Section F).
-- USPTO check: RUBBERIQ classes 009 + 042.
-- `guruboxz` org doesn't exist yet — when created, `gh repo transfer KrewHuddle/rubberiq guruboxz`.
-- Legal-Spanish review on landing + disclosure copy.
+## Open blockers
+Disposal dispatch ships as code; switching it on needs NC hauler registration + a permitted facility ·
+Stripe Terminal hardware/SDK confirmation (blocks A) · wholesaler choice Tirewire vs TireConnect
+(blocks Phase 3) · USPTO RUBBERIQ classes 009 + 042 · `guruboxz` org does not exist yet (then
+`gh repo transfer`) · legal-Spanish review on landing + disclosure copy (`es/admin.json` is UI copy, not legal text).
